@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玩伴志 · PLAYMATES JOURNAL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#faf6ef;
+  --ink:#2e2a24;
+  --ink-soft:#6a6255;
+  --line:#ddd5c3;
+  --line-mid:#c4bba6;
+  --line-faint:#efe8d8;
+  --tea:#8a5a3b;       /* 茶褐 · 克制点缀 */
+  --sage:#5f6d4f;      /* 鼠尾草绿 · 克制点缀 */
+  --red:#9d3b26;       /* 校验错误 · 细红线 */
+  --serif:'Cormorant Garamond','Noto Serif SC','Songti SC','STSong','SimSun',serif;
+  --sans:'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
+  --num:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{
+  background:var(--cream);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.9;
+}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{font-weight:600;line-height:1.5}
+ol,ul{list-style:none}
+[hidden]{display:none!important}
+
+.page{max-width:1200px;margin:0 auto;padding:26px 48px 44px}
+
+/* ————— 通用小构件 ————— */
+.label{
+  font-family:var(--sans);
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:.24em;
+  color:var(--ink-soft);
+  text-transform:uppercase;
+}
+.meta{font-size:14px;color:var(--ink-soft);letter-spacing:.02em}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);column-gap:36px}
+
+/* 区块题头：粗顶线 + 中英对照 */
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  border-top:2px solid var(--ink);
+  padding-top:12px;
+  margin-bottom:30px;
+}
+.sh-cn{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:.06em}
+.sh-cn .sh-en{
+  font-family:var(--num);
+  font-style:italic;
+  font-weight:500;
+  font-size:15px;
+  letter-spacing:.14em;
+  color:var(--ink-soft);
+  margin-left:10px;
+}
+.sh-note{font-size:11px;letter-spacing:.2em;color:var(--ink-soft);text-transform:uppercase}
+
+/* ————— 页眉刊号条 ————— */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  border-bottom:1px solid var(--ink);
+  padding-bottom:12px;
+  font-size:11px;
+  letter-spacing:.22em;
+  color:var(--ink-soft);
+  text-transform:uppercase;
+}
+.topbar-mid{color:var(--ink);letter-spacing:.3em}
+
+/* ————— 刊头 ————— */
+.masthead{text-align:center;padding:54px 0 42px}
+.mast-tag{font-size:13px;letter-spacing:.5em;text-indent:.5em;color:var(--ink-soft)}
+.mast-name{
+  font-family:var(--serif);
+  font-size:clamp(62px,7.6vw,102px);
+  font-weight:600;
+  letter-spacing:.22em;
+  text-indent:.22em;
+  line-height:1.25;
+  margin-top:14px;
+}
+.mast-en{
+  font-size:13px;
+  font-weight:500;
+  letter-spacing:.62em;
+  text-indent:.62em;
+  color:var(--ink);
+  margin-top:10px;
+}
+.mast-rule{display:flex;align-items:center;justify-content:center;gap:16px;margin:26px auto 18px}
+.mast-rule .rl{width:120px;height:1px;background:var(--line-mid)}
+.mast-rule .dm{font-size:10px;color:#a89d88;line-height:1}
+.mast-meta{font-size:14px;letter-spacing:.1em;color:var(--ink-soft)}
+.mast-meta .sep{margin:0 12px;color:#b3a98f}
+
+/* 内页紧凑刊头 */
+.masthead-compact{display:none;text-align:center;padding:32px 0 24px}
+.masthead-compact .mast-name-sm{
+  font-family:var(--serif);
+  font-size:44px;
+  font-weight:600;
+  letter-spacing:.3em;
+  text-indent:.3em;
+  line-height:1.25;
+}
+.masthead-compact .mast-en-sm{
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:.5em;
+  text-indent:.5em;
+  color:var(--ink-soft);
+  margin-top:10px;
+  text-transform:uppercase;
+}
+body:not([data-view="front"]) .masthead-full{display:none}
+body:not([data-view="front"]) .masthead-compact{display:block}
+
+/* ————— 导航（刊头下方，细线之间） ————— */
+.nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-top:1px solid var(--ink);
+  border-bottom:1px solid var(--line-mid);
+  padding:14px 0;
+}
+.nav-links{display:flex;flex-wrap:wrap;column-gap:30px;row-gap:6px}
+.nav-link{
+  background:none;border:none;padding:2px 0 5px;
+  font-family:var(--sans);font-size:13px;letter-spacing:.16em;
+  color:var(--ink-soft);cursor:pointer;
+  border-bottom:1px solid transparent;
+  transition:color .2s,border-color .2s;
+}
+.nav-link:hover{color:var(--ink)}
+.nav-link.active{color:var(--ink);border-bottom-color:var(--ink);font-weight:600}
+.nav-publish{
+  background:none;border:1.5px solid var(--ink);
+  padding:9px 22px;flex:none;
+  font-family:var(--sans);font-size:12px;font-weight:600;
+  letter-spacing:.28em;text-indent:.28em;
+  color:var(--ink);cursor:pointer;
+  transition:background .25s,color .25s;
+}
+.nav-publish:hover,.nav-publish.active{background:var(--ink);color:var(--cream)}
+
+/* ————— 视图切换 ————— */
+.view{display:none}
+.view.active{display:block}
+.view>.section-head{margin-top:40px}
+
+/* 示例小角标 */
+.badge-sample{
+  display:inline-block;vertical-align:middle;
+  font-family:var(--sans);font-size:10px;font-weight:400;
+  letter-spacing:.18em;text-indent:.18em;
+  color:var(--ink-soft);
+  border:1px solid var(--line-mid);
+  padding:2px 7px 1px;
+  margin-left:12px;
+  transform:translateY(-2px);
+}
+
+/* ————— 开篇：大数字 + 大标题 ————— */
+.foreword{margin-top:26px;align-items:center}
+.fw-left{grid-column:1/7;display:flex;gap:26px;align-items:stretch}
+.fw-number{display:flex;flex-direction:column}
+.fw-num-cap{font-size:11px;letter-spacing:.28em;color:var(--ink-soft)}
+.fw-num{
+  font-family:var(--num);
+  font-size:clamp(180px,16.5vw,262px);
+  font-weight:500;
+  line-height:.82;
+  letter-spacing:-.02em;
+  color:var(--tea);
+  margin-top:6px;
+  white-space:nowrap;
+}
+.fw-num-en{font-size:10.5px;letter-spacing:.22em;color:var(--ink-soft);margin-top:10px;text-transform:uppercase}
+.fw-vertical{
+  writing-mode:vertical-rl;
+  font-size:12px;
+  letter-spacing:.52em;
+  color:var(--ink-soft);
+  padding-top:14px;
+  border-left:1px solid var(--line);
+  padding-left:18px;
+}
+.fw-right{grid-column:7/13;padding-left:10px}
+.fw-title{
+  font-family:var(--serif);
+  font-size:clamp(32px,3.4vw,48px);
+  line-height:1.55;
+  margin-top:16px;
+}
+.fw-en{font-size:11px;letter-spacing:.3em;color:var(--ink-soft);margin-top:16px;text-transform:uppercase}
+.fw-lead{
+  font-size:15px;
+  line-height:2.15;
+  color:var(--ink-soft);
+  margin-top:26px;
+  max-width:36em;
+}
+
+/* ————— 本期主打 ————— */
+.story{margin-top:74px}
+.story-frame{grid-column:1/8;position:relative;border:1px solid var(--line-mid);padding:12px;aspect-ratio:3/2}
+.story-frame .inner{
+  height:100%;
+  border:1px solid var(--line);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  gap:5px;
+  padding:20px;
+}
+.fc{position:absolute;width:13px;height:13px}
+.fc1{top:-5px;left:-5px;border-top:1.5px solid var(--ink);border-left:1.5px solid var(--ink)}
+.fc2{top:-5px;right:-5px;border-top:1.5px solid var(--ink);border-right:1.5px solid var(--ink)}
+.fc3{bottom:-5px;left:-5px;border-bottom:1.5px solid var(--ink);border-left:1.5px solid var(--ink)}
+.fc4{bottom:-5px;right:-5px;border-bottom:1.5px solid var(--ink);border-right:1.5px solid var(--ink)}
+.frame-cross{position:relative;width:22px;height:22px;margin-bottom:14px}
+.frame-cross::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line-mid)}
+.frame-cross::after{content:'';position:absolute;top:50%;left:0;right:0;height:1px;background:var(--line-mid)}
+.frame-title{font-size:14px;letter-spacing:.3em;text-indent:.3em;color:var(--ink-soft)}
+.frame-en{font-size:10px;letter-spacing:.24em;color:var(--ink-soft);text-transform:uppercase}
+.frame-note{font-size:11.5px;letter-spacing:.16em;color:var(--ink-soft);margin-top:14px}
+.frame-note b{font-weight:600;color:var(--ink)}
+.story-text{grid-column:8/13;padding-top:8px}
+.story-title{font-family:var(--serif);font-size:clamp(27px,2.7vw,37px);line-height:1.55}
+.story-meta{margin-top:18px}
+.story-lead{font-size:15.5px;line-height:2.15;margin-top:22px}
+.story-more{
+  display:inline-block;margin-top:36px;
+  font-family:var(--sans);font-size:14px;font-weight:600;letter-spacing:.14em;
+  color:var(--ink);background:none;border:none;
+  border-bottom:1px solid var(--ink);
+  padding:0 0 7px;cursor:pointer;
+  transition:opacity .2s;
+}
+.story-more:hover{opacity:.65}
+.story-kv{margin-top:24px;border-top:1px solid var(--line);padding-top:16px;display:grid;gap:10px}
+.kv{font-size:14.5px;line-height:1.9}
+.kv-k{
+  display:inline-block;
+  font-size:11px;font-weight:500;letter-spacing:.2em;
+  color:var(--ink-soft);text-transform:uppercase;
+  margin-right:12px;transform:translateY(-1px);
+}
+
+/* ————— 要闻摘要 ————— */
+.brief{margin-top:74px}
+.brief-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.brief-item{padding:0 22px}
+.brief-item:first-child{padding-left:0}
+.brief-item:last-child{padding-right:0}
+.brief-item + .brief-item{border-left:1px solid var(--line)}
+.brief-item .tag{font-size:11px;letter-spacing:.22em;color:var(--ink-soft);text-transform:uppercase}
+.brief-item h3{font-family:var(--serif);font-size:20px;margin:12px 0 6px;line-height:1.5}
+.brief-item .meta{font-size:14px}
+.brief-item .excerpt{font-size:15px;line-height:2.05;margin-top:12px;color:var(--ink-soft)}
+
+/* ————— 目录 + 玩伴栏 ————— */
+.lower{margin-top:74px}
+.contents{grid-column:1/8}
+.toc-row{display:flex;align-items:flex-end;gap:14px;padding:15px 0;cursor:pointer}
+.toc-row + .toc-row{border-top:1px solid var(--line-faint)}
+.toc-no{font-family:var(--num);font-style:italic;font-size:16px;color:var(--ink-soft);width:26px;flex:none}
+.toc-body{flex:none;max-width:62%}
+.toc-name{font-family:var(--serif);font-size:17px;font-weight:600;letter-spacing:.04em}
+.toc-name em{
+  font-family:var(--num);
+  font-style:italic;
+  font-weight:500;
+  font-size:13px;
+  letter-spacing:.12em;
+  color:var(--ink-soft);
+  margin-left:9px;
+}
+.toc-desc{display:block;font-size:14px;color:var(--ink-soft);margin-top:1px}
+.toc-dots{flex:1;border-bottom:1px dotted #b8ae99;margin:0 2px 7px;transition:border-color .2s}
+.toc-row:hover .toc-dots{border-bottom-color:var(--ink-soft)}
+.toc-page{font-family:var(--num);font-style:italic;font-size:15px;flex:none}
+
+.mates{grid-column:8/13;border-left:1px solid var(--line);padding-left:40px}
+.mates-body{display:flex;gap:26px;align-items:flex-start}
+.mates-photo{
+  flex:none;
+  width:74px;
+  aspect-ratio:3/4;
+  border:1px solid var(--line-mid);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.mates-photo span{
+  writing-mode:vertical-rl;
+  font-size:10.5px;
+  letter-spacing:.32em;
+  color:var(--ink-soft);
+}
+.mates-tag{font-size:11px;letter-spacing:.24em;color:var(--sage);text-transform:uppercase;font-weight:500}
+.mates-name{font-family:var(--serif);font-size:32px;margin-top:10px}
+.mates-name::after{content:'';display:block;width:36px;height:2px;background:var(--sage);margin-top:9px}
+.mates-info .meta{margin-top:12px}
+.mates-info .excerpt{font-size:15px;line-height:2.05;margin-top:14px;color:var(--ink-soft)}
+.mates-note{
+  margin-top:30px;
+  padding-top:15px;
+  border-top:1px solid var(--line);
+  font-size:11px;
+  letter-spacing:.18em;
+  color:var(--ink-soft);
+  line-height:2;
+}
+.mates-body.is-empty .mates-tag{color:var(--ink-soft)}
+.mates-body.is-empty .mates-name::after{background:var(--line-mid)}
+
+/* ————— 版块页 ————— */
+.view .sec-hero{margin-top:40px}
+.sec-hero{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  flex-wrap:wrap;
+  gap:16px;
+  border-top:2px solid var(--ink);
+  padding-top:14px;
+}
+.sec-title{font-family:var(--serif);font-size:34px;font-weight:600;letter-spacing:.08em;line-height:1.35}
+.sec-title .sec-en{
+  font-family:var(--num);font-style:italic;font-weight:500;
+  font-size:16px;letter-spacing:.16em;color:var(--ink-soft);margin-left:12px;
+}
+.sec-desc{margin-top:6px}
+.sec-stats{font-size:14px;color:var(--ink-soft);letter-spacing:.04em;padding-bottom:6px}
+.sec-stats b{font-family:var(--num);font-size:18px;color:var(--ink);font-weight:600;margin:0 2px}
+.sec-stats b.rate{color:var(--tea)}
+
+.articles{margin-top:36px}
+.article{border-top:1px solid var(--line);padding:30px 0 28px}
+.article:first-child{border-top:none}
+.article-head{cursor:pointer}
+.article-top{display:flex;align-items:center;gap:16px}
+.article-no{font-family:var(--num);font-style:italic;font-size:15px;color:var(--ink-soft);flex:none}
+.article-title{font-family:var(--serif);font-size:24px;font-weight:600;letter-spacing:.03em;line-height:1.5;flex:1}
+.result-label{
+  flex:none;font-size:11px;letter-spacing:.14em;text-indent:.14em;
+  border:1px solid var(--line-mid);color:var(--ink-soft);
+  padding:3px 10px;white-space:nowrap;
+}
+.result-label.r-win{color:var(--tea);border-color:var(--tea)}
+.article-meta{margin-top:8px;font-size:14px;color:var(--ink-soft)}
+.article-kv{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;column-gap:36px}
+.article-toggle{
+  display:inline-block;margin-top:16px;
+  font-size:12.5px;letter-spacing:.14em;color:var(--ink-soft);
+  border-bottom:1px solid var(--line-mid);padding-bottom:3px;
+  transition:color .2s,border-color .2s;
+}
+.article-head:hover .article-toggle{color:var(--ink);border-color:var(--ink)}
+.article-body{margin-top:4px;padding:20px 0 4px 26px;border-left:1px solid var(--line-mid)}
+.article-body p{font-size:15px;line-height:2.15;max-width:46em}
+
+/* 空状态取景框 */
+.empty-frame{
+  position:relative;
+  border:1px solid var(--line-mid);
+  max-width:620px;margin:44px auto 10px;
+  padding:60px 30px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+}
+.empty-frame .story-more{margin-top:28px}
+
+/* ————— 人物版 ————— */
+.people-lead{font-size:15px;color:var(--ink-soft);line-height:2.1;max-width:44em;margin:-14px 0 24px}
+.person{
+  display:grid;grid-template-columns:64px 300px 1fr;
+  column-gap:36px;padding:34px 0;
+  border-top:1px solid var(--line);
+}
+.person:first-child{border-top:none;padding-top:8px}
+.person-no{font-family:var(--num);font-style:italic;font-size:17px;color:var(--ink-soft);padding-top:12px}
+.person-name{font-family:var(--serif);font-size:36px;font-weight:600;letter-spacing:.06em;line-height:1.3;margin-top:6px}
+.person-name::after{content:'';display:block;width:40px;height:2px;background:var(--line-mid);margin-top:10px}
+.person.is-top .person-name::after{background:var(--sage)}
+.person .meta{margin-top:12px}
+.person-quote .label{display:block;margin-bottom:10px}
+.quote{font-family:var(--serif);font-size:19px;line-height:1.9}
+.person-sec{margin-top:14px;font-size:12.5px;letter-spacing:.08em;color:var(--ink-soft)}
+
+/* ————— 成长版 ————— */
+.growth-nums{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--ink);
+  border-bottom:1px solid var(--line-mid);
+}
+.gnum{padding:30px 28px 26px;border-left:1px solid var(--line)}
+.gnum:first-child{border-left:none;padding-left:0}
+.gnum-n{display:block;font-family:var(--num);font-size:58px;font-weight:500;line-height:1;margin-top:12px;white-space:nowrap}
+.gnum-en{display:block;font-size:10.5px;letter-spacing:.2em;color:var(--ink-soft);margin-top:10px;text-transform:uppercase}
+.chart-block{margin-top:56px}
+.chart-row{
+  display:grid;grid-template-columns:180px 1fr 70px;
+  align-items:center;column-gap:26px;
+  padding:14px 0;border-top:1px solid var(--line-faint);
+}
+.chart-block .chart-row:first-child{border-top:none}
+.chart-name{font-family:var(--serif);font-size:17px;font-weight:600}
+.chart-name em{
+  font-family:var(--num);font-style:italic;font-weight:500;
+  font-size:12px;letter-spacing:.12em;color:var(--ink-soft);margin-left:8px;
+}
+.bar-track{height:11px;background:var(--line-faint)}
+.bar-track.thin{height:5px}
+.bar-fill{height:100%;background:var(--ink);transition:width .7s ease}
+.bar-num{font-family:var(--num);font-style:italic;font-size:16px;text-align:right}
+.track-list{display:grid;grid-template-columns:1fr 1fr;column-gap:48px}
+.track-row{display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--line-faint)}
+.track-list .track-row:nth-child(-n+2){border-top:none}
+.t-dot{display:inline-block;width:9px;height:9px;border-radius:50%;flex:none}
+.t-dot.win{background:var(--tea)}
+.t-dot.loss{border:1px solid var(--ink-soft)}
+.t-dash{display:inline-block;width:14px;height:1px;background:var(--ink-soft);flex:none}
+.t-date{font-family:var(--num);font-style:italic;font-size:14.5px;color:var(--ink-soft);flex:none;width:78px}
+.t-game{font-size:14.5px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.t-result{font-size:12px;letter-spacing:.12em;color:var(--ink-soft);flex:none}
+.track-empty{grid-column:1/-1;padding:18px 0;font-size:14px;color:var(--ink-soft)}
+.track-legend{
+  margin-top:18px;font-size:12px;letter-spacing:.14em;color:var(--ink-soft);
+  display:flex;gap:26px;align-items:center;flex-wrap:wrap;
+}
+.track-legend .t-dot,.track-legend .t-dash{margin-right:8px;vertical-align:middle}
+
+/* ————— 发稿（投稿表单） ————— */
+.submit-lead{font-size:15px;color:var(--ink-soft);line-height:2.1;max-width:46em;margin:-14px 0 6px}
+.submit-lead .freq{margin:0 2px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:48px;row-gap:36px;margin-top:38px;max-width:980px}
+.field.full{grid-column:1/-1}
+.flabel{
+  display:flex;justify-content:space-between;align-items:baseline;
+  font-size:11px;font-weight:500;letter-spacing:.22em;
+  color:var(--ink-soft);text-transform:uppercase;
+  margin-bottom:10px;
+}
+.freq{color:var(--red)}
+.fopt{font-weight:400;letter-spacing:.1em;color:var(--ink-soft)}
+.finput{
+  width:100%;background:transparent;border:none;
+  border-bottom:1px solid var(--line-mid);
+  font-family:var(--sans);font-size:15px;color:var(--ink);
+  padding:9px 0;line-height:1.7;
+}
+.finput:focus{outline:none;border-bottom-color:var(--ink)}
+.finput::placeholder{color:var(--ink-soft);opacity:.65}
+textarea.finput{border:1px solid var(--line-mid);padding:14px 16px;min-height:150px;resize:vertical;line-height:2.05}
+textarea.finput:focus{border-color:var(--ink)}
+.fchips{display:flex;flex-wrap:wrap;margin-top:2px}
+.chip{position:relative;display:inline-block;margin:0 12px 12px 0;cursor:pointer}
+.chip input{position:absolute;opacity:0;pointer-events:none}
+.chip span{
+  display:inline-block;border:1px solid var(--line-mid);
+  padding:9px 22px;font-size:13.5px;letter-spacing:.1em;color:var(--ink);
+  transition:background .2s,color .2s,border-color .2s;
+}
+.chip:hover span{border-color:var(--ink)}
+.chip input:checked + span{background:var(--ink);border-color:var(--ink);color:var(--cream)}
+.chip input:focus-visible + span{outline:1px dashed var(--ink);outline-offset:2px}
+.ferr{margin-top:9px;font-size:12.5px;letter-spacing:.06em;color:var(--red)}
+.field.err .finput{border-bottom-color:var(--red)}
+.field.err textarea.finput{border-color:var(--red)}
+.field.err .chip span{border-color:var(--red)}
+.tags{
+  display:flex;flex-wrap:wrap;align-items:center;gap:9px;
+  border-bottom:1px solid var(--line-mid);
+  padding:7px 0;min-height:46px;cursor:text;
+}
+.tags:focus-within{border-bottom-color:var(--ink)}
+.ptag{
+  display:inline-flex;align-items:center;gap:7px;
+  border:1px solid var(--line-mid);
+  padding:4px 7px 4px 12px;font-size:13px;letter-spacing:.05em;
+}
+.ptag-x{
+  background:none;border:none;padding:0 3px;
+  font-family:var(--sans);font-size:15px;line-height:1;
+  color:var(--ink-soft);cursor:pointer;
+}
+.ptag-x:hover{color:var(--ink)}
+.tag-input{flex:1;min-width:130px;border:none;background:transparent;font-family:var(--sans);font-size:14.5px;color:var(--ink);padding:5px 0}
+.tag-input:focus{outline:none}
+.tag-input::placeholder{color:var(--ink-soft);opacity:.65}
+.form-actions{margin-top:46px;display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+.btn-ghost{
+  background:none;border:none;padding:6px 0;
+  font-family:var(--sans);font-size:13px;letter-spacing:.2em;
+  color:var(--ink-soft);cursor:pointer;
+  border-bottom:1px solid transparent;
+  transition:color .2s,border-color .2s;
+}
+.btn-ghost:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+/* ————— 发稿（头版征稿带） ————— */
+.submit{
+  margin-top:84px;
+  border-top:1px solid var(--ink);
+  border-bottom:1px solid var(--ink);
+  padding:46px 0 44px;
+  text-align:center;
+}
+.submit-title{font-family:var(--serif);font-size:23px;margin-top:14px}
+.btn-submit{
+  margin-top:32px;
+  font-family:var(--sans);
+  font-size:15px;
+  font-weight:600;
+  letter-spacing:.42em;
+  text-indent:.42em;
+  color:var(--ink);
+  background:none;
+  border:1.5px solid var(--ink);
+  padding:16px 52px;
+  cursor:pointer;
+  transition:background .25s ease,color .25s ease;
+}
+.btn-submit:hover{background:var(--ink);color:var(--cream)}
+.submit-note{font-size:11px;letter-spacing:.2em;color:var(--ink-soft);margin-top:24px}
+
+/* ————— 清空示例刊 ————— */
+.sample-clear{margin-top:56px;text-align:center;font-size:13px}
+.sample-clear .note{display:block;margin-top:12px;font-size:11px;letter-spacing:.16em;color:var(--ink-soft)}
+.linklike{
+  background:none;border:none;padding:0 0 3px;
+  font-family:var(--sans);font-size:13px;letter-spacing:.08em;
+  color:var(--ink-soft);
+  border-bottom:1px solid var(--line-mid);
+  cursor:pointer;
+  transition:color .2s,border-color .2s;
+}
+.linklike:hover{color:var(--ink);border-bottom-color:var(--ink)}
+.inline-confirm{display:inline-flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:center}
+.inline-confirm .q{font-size:13px;color:var(--ink)}
+.mini-btn{
+  background:none;border:1px solid var(--ink);
+  padding:7px 16px;
+  font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-indent:.18em;
+  color:var(--ink);cursor:pointer;
+  transition:background .2s,color .2s;
+}
+.mini-btn:hover{background:var(--ink);color:var(--cream)}
+.mini-btn.ghost{border-color:var(--line-mid);color:var(--ink-soft)}
+.mini-btn.ghost:hover{background:none;border-color:var(--ink);color:var(--ink)}
+
+/* ————— 页脚 ————— */
+.foot{margin-top:62px}
+.foot-rule{height:5px;border-top:2px solid var(--ink);border-bottom:1px solid var(--ink)}
+.foot-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  margin-top:14px;
+  font-size:11px;
+  letter-spacing:.18em;
+  color:var(--ink-soft);
+  text-transform:uppercase;
+}
+.foot-motto{
+  text-align:center;
+  font-family:var(--serif);
+  font-size:14px;
+  letter-spacing:.14em;
+  color:var(--ink-soft);
+  margin-top:26px;
+}
+
+/* ————— 顶部发稿提示细条 ————— */
+.toast{
+  position:fixed;top:0;left:50%;
+  transform:translate(-50%,-130%);
+  background:var(--ink);color:var(--cream);
+  padding:12px 36px;
+  font-size:12.5px;letter-spacing:.28em;text-indent:.28em;
+  z-index:99;
+  transition:transform .35s ease;
+}
+.toast.show{transform:translate(-50%,0)}
+
+/* ————— 窄屏兜底 ————— */
+@media (max-width:1024px){
+  .page{padding:20px 26px 36px}
+  .topbar-mid{display:none}
+  .fw-left,.fw-right,.story-frame,.story-text,.contents,.mates{grid-column:1/13}
+  .fw-right{margin-top:40px;padding-left:0}
+  .story-text{margin-top:34px}
+  .mates{border-left:none;padding-left:0;margin-top:56px}
+  .brief-grid{grid-template-columns:1fr 1fr}
+  .brief-item:nth-child(odd){border-left:none;padding-left:0}
+  .form-grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .growth-nums{grid-template-columns:repeat(2,1fr)}
+  .gnum{padding:22px 20px}
+  .gnum:nth-child(odd){border-left:none;padding-left:0}
+  .gnum:nth-child(n+3){border-top:1px solid var(--line);padding-top:22px}
+  .chart-row{grid-template-columns:110px 1fr 60px}
+  .person{grid-template-columns:56px 1fr;row-gap:20px}
+  .person-quote{grid-column:2}
+  .article-kv{grid-template-columns:1fr}
+  .sec-hero{flex-direction:column;align-items:flex-start;gap:14px}
+  .sec-stats{padding-bottom:0}
+}
+@media (max-width:560px){
+  .page{padding:16px 18px 30px}
+  .mast-name{letter-spacing:.12em;text-indent:.12em}
+  .mast-meta .sep{margin:0 6px}
+  .fw-vertical{display:none}
+  .fw-num{font-size:clamp(120px,32vw,180px)}
+  .toc-desc{display:none}
+  .mates-body{flex-direction:column}
+  .nav{flex-direction:column;align-items:flex-start;gap:14px}
+  .nav-links{column-gap:22px}
+  .brief-grid{grid-template-columns:1fr}
+  .brief-item{padding:0;border-left:none}
+  .brief-item + .brief-item{border-top:1px solid var(--line);margin-top:24px;padding-top:24px}
+  .article-top{flex-wrap:wrap}
+  .article-title{font-size:20px;flex-basis:100%}
+  .track-list{grid-template-columns:1fr}
+  .track-list .track-row:nth-child(-n+2){border-top:1px solid var(--line-faint)}
+  .track-list .track-row:first-child{border-top:none}
+  .person{grid-template-columns:1fr}
+  .person-quote{grid-column:auto}
+  .gnum-n{font-size:44px}
+  .chart-row{grid-template-columns:90px 1fr 52px}
+  .growth-nums{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body data-view="front">
+
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastText">已发稿</span></div>
+
+<div class="page">
+
+  <!-- 页眉刊号 -->
+  <header class="topbar">
+    <span>温柔地玩 · 认真地记</span>
+    <span class="topbar-mid">PLAYMATES JOURNAL · A SLOW JOURNAL OF GAMES</span>
+    <span>VOL.03 — <span class="js-issue">ISSUE 10</span></span>
+  </header>
+
+  <!-- 刊头（头版完整版） -->
+  <section class="masthead masthead-full">
+    <p class="mast-tag">一份关于『一起玩』的刊物</p>
+    <h1 class="mast-name">玩伴志</h1>
+    <p class="mast-en">PLAYMATES JOURNAL</p>
+    <div class="mast-rule" aria-hidden="true">
+      <span class="rl"></span><span class="dm">✦</span><span class="rl"></span>
+    </div>
+    <p class="mast-meta">
+      VOL.03 · <span class="js-issue">ISSUE 10</span><span class="sep">/</span><span class="js-today">2026年10月24日 · 星期六</span><span class="sep">/</span>在场玩伴 <span class="js-mates-count">7</span> 人<span class="sep">/</span>定价：一段好时光
+    </p>
+  </section>
+
+  <!-- 刊头（内页紧凑版） -->
+  <section class="masthead-compact">
+    <h1 class="mast-name-sm">玩伴志</h1>
+    <p class="mast-en-sm">PLAYMATES JOURNAL · <span class="js-issue">ISSUE 10</span></p>
+  </section>
+
+  <!-- 导航 -->
+  <nav class="nav" aria-label="版块导航">
+    <div class="nav-links" id="navLinks">
+      <button class="nav-link active" data-view="front" type="button">头版</button>
+      <button class="nav-link" data-view="section" data-key="mobile" type="button">手游版</button>
+      <button class="nav-link" data-view="section" data-key="board" type="button">桌游版</button>
+      <button class="nav-link" data-view="section" data-key="console" type="button">端游版</button>
+      <button class="nav-link" data-view="section" data-key="family" type="button">家庭版</button>
+      <button class="nav-link" data-view="section" data-key="learning" type="button">学习版</button>
+      <button class="nav-link" data-view="people" type="button">人物版</button>
+      <button class="nav-link" data-view="growth" type="button">成长版</button>
+    </div>
+    <button class="nav-publish" id="navPublish" type="button">发稿 · File a Game</button>
+  </nav>
+
+  <main>
+
+    <!-- ————— 头版 ————— -->
+    <section class="view active" id="view-front">
+
+      <!-- 开篇 -->
+      <section class="foreword grid">
+        <div class="fw-left">
+          <div class="fw-number">
+            <span class="fw-num-cap">本期期数 · 累计局数</span>
+            <span class="fw-num" id="fwNum">10</span>
+            <span class="fw-num-en">Issue No.<span class="js-issuenum">10</span> — Games Played in Total</span>
+          </div>
+          <span class="fw-vertical" aria-hidden="true">每一局，都算数</span>
+        </div>
+        <div class="fw-right">
+          <span class="label">开篇 · Foreword</span>
+          <h2 class="fw-title">我们玩过的每一局，<br>都值得被记得</h2>
+          <p class="fw-en">Every game we played is worth remembering</p>
+          <p class="fw-lead" id="fwLead"></p>
+        </div>
+      </section>
+
+      <!-- 本期主打 -->
+      <section class="story">
+        <div class="section-head">
+          <span class="sh-cn">本期主打<span class="sh-en">The Feature</span></span>
+          <span class="sh-note" id="featureNote"></span>
+        </div>
+        <div class="grid" id="featureMount"></div>
+      </section>
+
+      <!-- 要闻摘要 -->
+      <section class="brief" id="briefSec">
+        <div class="section-head">
+          <span class="sh-cn">要闻摘要<span class="sh-en">In Brief</span></span>
+          <span class="sh-note">跨版精选 · Across All Desks</span>
+        </div>
+        <div class="brief-grid" id="briefGrid"></div>
+      </section>
+
+      <!-- 版块目录 + 玩伴栏 -->
+      <section class="lower grid">
+        <div class="contents">
+          <div class="section-head">
+            <span class="sh-cn">本期各版<span class="sh-en">Contents</span></span>
+            <span class="sh-note">五大版块 · Five Sections</span>
+          </div>
+          <ol class="toc" id="tocList"></ol>
+        </div>
+        <aside class="mates">
+          <div class="section-head">
+            <span class="sh-cn">玩伴栏<span class="sh-en">Playmates</span></span>
+            <span class="sh-note" id="matesHeadNote"></span>
+          </div>
+          <div id="matesMount"></div>
+        </aside>
+      </section>
+
+      <!-- 发稿（投稿隐喻） -->
+      <section class="submit">
+        <span class="label">征稿 · Submissions</span>
+        <p class="submit-title">刚打完一局？把它写成小稿，寄给下一期。</p>
+        <button class="btn-submit" type="button" data-goto-submit>发稿 · File a Game</button>
+        <p class="submit-note">截稿：随时 · 篇幅：不限 · 署名：你的游戏 ID</p>
+      </section>
+
+      <!-- 清空示例刊 -->
+      <div class="sample-clear" id="sampleClearWrap">
+        <button class="linklike" id="btnClearSample" type="button">清空示例刊，开始我自己的记录</button>
+        <span class="inline-confirm" id="inlineConfirm" hidden>
+          <span class="q">确认清空全部示例记录？此操作不可恢复。</span>
+          <button class="mini-btn" id="btnConfirmClear" type="button">确认清空</button>
+          <button class="mini-btn ghost" id="btnCancelClear" type="button">取消</button>
+        </span>
+        <span class="note">示例数据仅用于演示版面 · 清空后从零开始属于你的刊物</span>
+      </div>
+
+    </section>
+
+    <!-- ————— 五大版块页（同一模板，JS 渲染） ————— -->
+    <section class="view" id="view-section">
+      <div id="sectionMount"></div>
+    </section>
+
+    <!-- ————— 人物版 ————— -->
+    <section class="view" id="view-people">
+      <div class="section-head">
+        <span class="sh-cn">人物版<span class="sh-en">People</span></span>
+        <span class="sh-note">在场玩伴 <span class="js-mates-count">7</span> 人 · All Present</span>
+      </div>
+      <p class="people-lead">翻报纸，就是翻我们的关系。每一位同我们玩过的人，都在下面占一栏档案——局数会累积，版面会说话。</p>
+      <div class="people-list" id="peopleList"></div>
+    </section>
+
+    <!-- ————— 成长版 ————— -->
+    <section class="view" id="view-growth">
+      <div class="section-head">
+        <span class="sh-cn">成长版<span class="sh-en">Growth</span></span>
+        <span class="sh-note">像体育榜单一样 · See the Progress</span>
+      </div>
+      <div class="growth-nums">
+        <div class="gnum"><span class="label">总局数</span><span class="gnum-n" id="gNumGames">0</span><span class="gnum-en">Games in Total</span></div>
+        <div class="gnum"><span class="label">总胜率</span><span class="gnum-n" id="gNumRate">—</span><span class="gnum-en">Overall Win Rate</span></div>
+        <div class="gnum"><span class="label">玩伴数</span><span class="gnum-n" id="gNumMates">0</span><span class="gnum-en">Playmates Met</span></div>
+        <div class="gnum"><span class="label">最长连胜</span><span class="gnum-n" id="gNumStreak">0</span><span class="gnum-en">Longest Win Streak</span></div>
+      </div>
+      <div class="chart-block">
+        <div class="section-head">
+          <span class="sh-cn">五版块局数<span class="sh-en">Games by Section</span></span>
+          <span class="sh-note">细横条 · 各版收录局数</span>
+        </div>
+        <div id="chartGames"></div>
+      </div>
+      <div class="chart-block">
+        <div class="section-head">
+          <span class="sh-cn">五版块胜率<span class="sh-en">Win Rate by Section</span></span>
+          <span class="sh-note">胜负平计入 · 无关胜负不计</span>
+        </div>
+        <div id="chartRates"></div>
+      </div>
+      <div class="chart-block">
+        <div class="section-head">
+          <span class="sh-cn">最近轨迹<span class="sh-en">Recent 10</span></span>
+          <span class="sh-note">按日期倒序 · Latest First</span>
+        </div>
+        <ol class="track-list" id="trackList"></ol>
+        <div class="track-legend">
+          <span><span class="t-dot win" aria-hidden="true"></span>胜</span>
+          <span><span class="t-dot loss" aria-hidden="true"></span>负</span>
+          <span><span class="t-dash" aria-hidden="true"></span>平 / 无关胜负</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ————— 发稿（投稿表单） ————— -->
+    <section class="view" id="view-submit">
+      <div class="section-head">
+        <span class="sh-cn">发稿<span class="sh-en">File a Game</span></span>
+        <span class="sh-note">投稿须知 · Submissions</span>
+      </div>
+      <p class="submit-lead">一局结束五分钟内，把它写成小稿，寄给下一期。带<span class="freq">*</span>为必填；标题留空时，编辑部代拟为「{游戏}·{日期}的记录」。</p>
+      <form id="submitForm" novalidate>
+        <div class="form-grid">
+          <div class="field">
+            <label class="flabel" for="f-title"><span>标题 <span class="fopt">Title</span></span><span class="fopt">可留空 · 自动生成</span></label>
+            <input class="finput" type="text" id="f-title" maxlength="40" placeholder="例：星耀之夜">
+          </div>
+          <div class="field" id="fld-game">
+            <label class="flabel" for="f-game"><span>游戏名 <span class="freq">*</span></span></label>
+            <input class="finput" type="text" id="f-game" maxlength="30" placeholder="例：王者荣耀">
+            <p class="ferr" hidden></p>
+          </div>
+          <div class="field full" id="fld-section">
+            <span class="flabel"><span>版块 <span class="freq">*</span></span><span class="fopt">五选一 · Section</span></span>
+            <div class="fchips">
+              <label class="chip"><input type="radio" name="f-section" value="mobile"><span>手游版</span></label>
+              <label class="chip"><input type="radio" name="f-section" value="board"><span>桌游版</span></label>
+              <label class="chip"><input type="radio" name="f-section" value="console"><span>端游版</span></label>
+              <label class="chip"><input type="radio" name="f-section" value="family"><span>家庭版</span></label>
+              <label class="chip"><input type="radio" name="f-section" value="learning"><span>学习版</span></label>
+            </div>
+            <p class="ferr" hidden></p>
+          </div>
+          <div class="field" id="fld-date">
+            <label class="flabel" for="f-date"><span>日期 <span class="freq">*</span></span></label>
+            <input class="finput" type="date" id="f-date">
+            <p class="ferr" hidden></p>
+          </div>
+          <div class="field">
+            <span class="flabel"><span>队友 <span class="fopt">Playmates</span></span><span class="fopt">输入名字后回车</span></span>
+            <div class="tags" id="playerTags">
+              <input type="text" class="tag-input" id="f-players" placeholder="例：阿凯">
+            </div>
+          </div>
+          <div class="field full">
+            <span class="flabel"><span>结果 <span class="fopt">Result</span></span><span class="fopt">家庭与学习局常用「无关胜负」</span></span>
+            <div class="fchips">
+              <label class="chip"><input type="radio" name="f-result" value="win"><span>胜</span></label>
+              <label class="chip"><input type="radio" name="f-result" value="loss"><span>负</span></label>
+              <label class="chip"><input type="radio" name="f-result" value="draw"><span>平</span></label>
+              <label class="chip"><input type="radio" name="f-result" value="none" checked><span>无关胜负</span></label>
+            </div>
+          </div>
+          <div class="field full">
+            <label class="flabel" for="f-body"><span>复盘正文 <span class="fopt">Body of Review</span></span><span class="fopt">篇幅不限</span></label>
+            <textarea class="finput" id="f-body" placeholder="这一局怎么打的、聊了什么、下次想怎么玩……"></textarea>
+          </div>
+          <div class="field">
+            <label class="flabel" for="f-highlight"><span>亮点时刻 <span class="fopt">Highlight</span></span></label>
+            <input class="finput" type="text" id="f-highlight" maxlength="60" placeholder="例：小雨的钟馗三次关键钩">
+          </div>
+          <div class="field">
+            <label class="flabel" for="f-learned"><span>学到的事 <span class="fopt">Learned</span></span></label>
+            <input class="finput" type="text" id="f-learned" maxlength="60" placeholder="例：逆风别投">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-submit">发稿 · File a Game</button>
+          <button type="button" class="btn-ghost" id="btnCancel">取消 · 返回上一版</button>
+        </div>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- 页脚刊号 -->
+  <footer class="foot">
+    <div class="foot-rule" aria-hidden="true"></div>
+    <div class="foot-row">
+      <span>玩伴志 · Playmates Journal</span>
+      <span>— 01 —</span>
+      <span>VOL.03 · <span class="js-issue">ISSUE 10</span> · <span class="js-today-dot">2026.10.24</span></span>
+    </div>
+    <p class="foot-motto">把一起玩过的时间，留在纸上。</p>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ————— 配置 ————— */
+var STORE_KEY='playmates_journal_v1';
+var SECTIONS=[
+  {key:'mobile',  cn:'手游版', cnShort:'手游', en:'MOBILE GAMES', desc:'五排开黑 · 上分战报'},
+  {key:'board',   cn:'桌游版', cnShort:'桌游', en:'BOARD GAMES',  desc:'桌上的策略 · 身边的家人'},
+  {key:'console', cn:'端游版', cnShort:'端游', en:'CONSOLE & PC', desc:'双人合作 · 深夜通关'},
+  {key:'family',  cn:'家庭版', cnShort:'家庭', en:'FAMILY GAMES', desc:'客厅里的笑声记录'},
+  {key:'learning',cn:'学习版', cnShort:'学习', en:'LEARNING',     desc:'把进步，玩出来'}
+];
+var SEC_MAP={};
+SECTIONS.forEach(function(s){SEC_MAP[s.key]=s;});
+var RESULTS={win:'胜',loss:'负',draw:'平',none:'无关胜负'};
+
+/* ————— 示例数据（isSample: true） ————— */
+var SAMPLE_RECORDS=[
+  {id:'s01',title:'星耀之夜：三人五排三连胜',game:'王者荣耀',section:'mobile',date:'2026-10-23',players:['阿凯','小雨'],result:'win',
+   lead:'最后一波远古龙团 0 换 4 逆转战局，被压了一整晚的逆风局，被我们一口一口啃了回来。',
+   body:'前中期被压到两路高地，一直没崩，靠阿凯的指挥稳住节奏，经济差最大的时候落后四千。最后一波远古龙团，小雨先手钩中对面打野，我们 0 换 4 直接推平基地。三连胜收工，下周冲王者段。',
+   highlight:'小雨的钟馗三次关键钩',learned:'逆风别投，运营拖后期自有回报',isSample:true,createdAt:1790000000000},
+  {id:'s02',title:'表弟的首胜',game:'卡坦岛',section:'board',date:'2026-10-20',players:['表弟','妈妈'],result:'none',
+   lead:'',body:'表弟第一次上桌，前半程默默攒木头，谁都没注意他。最后用最长道路卡翻盘，拿下的瞬间整个人从椅子上弹起来。妈妈说明晚还来。',
+   highlight:'表弟用最长道路卡翻盘',learned:'教会新人比赢更有成就感',isSample:true,createdAt:1789996400000},
+  {id:'s03',title:'和对象通关第七章',game:'双人成行',section:'console',date:'2026-10-18',players:['对象'],result:'none',
+   lead:'',body:'时钟塔那一关试了三次。最后一次两个人几乎没说话，全靠眼神和节奏，一次过。通关之后击掌，比赢任何排位都开心。',
+   highlight:'时钟塔双人配合一次过',learned:'沟通比手速重要',isSample:true,createdAt:1789992800000},
+  {id:'s04',title:'和妹妹的连胜打卡',game:'多邻国',section:'learning',date:'2026-10-17',players:['妹妹'],result:'win',
+   lead:'',body:'互相监督的第 30 天，两个人都没有断签。今天她比我先完成，发来一张截图宣示胜利。连胜还在继续。',
+   highlight:'连续 30 天互相监督',learned:'搭子机制让坚持变容易',isSample:true,createdAt:1789989200000},
+  {id:'s05',title:'妈妈的两连胜',game:'马里奥派对',section:'family',date:'2026-10-13',players:['妈妈','爸爸','表弟'],result:'win',
+   lead:'',body:'周日晚固定家庭局。妈妈在迷你游戏环节连拿三连胜，爸爸怀疑手柄有问题，换了一个之后输得更惨。表弟全程负责起哄。',
+   highlight:'妈妈在迷你游戏环节碾压全家',learned:'家庭游戏夜要固定下来',isSample:true,createdAt:1789985600000},
+  {id:'s06',title:'新阵容首试',game:'金铲铲之战',section:'mobile',date:'2026-10-11',players:['阿凯'],result:'loss',
+   lead:'',body:'新阵容的强势期在四级，我却在三级就把钱梭哈了，经济直接崩掉。阿凯在旁边看完全程，只说了一句：钱要花在刀刃上。',
+   highlight:'明白了过渡期的经济管理',learned:'新阵容先打两把匹配再排位',isSample:true,createdAt:1789982000000},
+  {id:'s07',title:'第一次当法官',game:'剧本杀《夜宴》',section:'board',date:'2026-10-06',players:['小雨','阿凯','表弟'],result:'none',
+   lead:'',body:'第一次主持，紧张到念错两次角色名。好在这车玩家都很给面子，全程没人投我，散场还被夸节奏稳。主持一场局，原来也是一种玩法。',
+   highlight:'全程没被投出去',learned:'主持一场局也是一种成长',isSample:true,createdAt:1789978400000},
+  {id:'s08',title:'四星达成',game:'胡闹厨房2',section:'console',date:'2026-10-03',players:['对象'],result:'win',
+   lead:'',body:'寿司关磨了一晚上，终于四星。分工明确之后，厨房里居然没有吵架，只有「收到了」和「让一让」。下一关，三星饭店见。',
+   highlight:'寿司关配合终于流畅',learned:'分工明确后吵架次数直线下降',isSample:true,createdAt:1789974800000},
+  {id:'s09',title:'速度提升',game:'数独对战',section:'learning',date:'2026-09-28',players:['妹妹'],result:'loss',
+   lead:'',body:'和妹妹比中等难度，她 8 分 40 秒交卷，我 11 分钟才完成。差距在笔记习惯——她每个格子边上全标了排除项，我的盘面干干净净。',
+   highlight:'中等难度首次进 10 分钟',learned:'排除法笔记值得坚持',isSample:true,createdAt:1789971200000},
+  {id:'s10',title:'周五家庭夜',game:'你画我猜',section:'family',date:'2026-09-26',players:['妈妈','爸爸','妹妹'],result:'none',
+   lead:'',body:'爸爸画的「奥特曼」被全家猜成电塔，笑到暂停。最终妈妈和妹妹并列第一，爸爸垫底，但贡献了全部笑点。',
+   highlight:'爸爸画的「奥特曼」被猜成电塔',learned:'输赢不重要，笑到肚子疼最重要',isSample:true,createdAt:1789967600000}
+];
+
+/* ————— 状态 ————— */
+var records=loadData();
+var currentView='front';
+var currentKey=null;
+var lastView={view:'front',key:null};
+var playerNames=[];
+var toastTimer=null;
+
+/* ————— 工具 ————— */
+function $(id){return document.getElementById(id);}
+function $all(sel,root){return Array.prototype.slice.call((root||document).querySelectorAll(sel));}
+function esc(s){
+  return String(s==null?'':s).replace(/[&<>"']/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+function pad2(n){return (n<10?'0':'')+n;}
+function todayStr(){var d=new Date();return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate());}
+function fmtCN(ds){var p=String(ds).split('-');return (+p[0])+'年'+(+p[1])+'月'+(+p[2])+'日';}
+function fmtDot(ds){return String(ds).replace(/-/g,'.');}
+function fmtShort(ds){
+  var p=String(ds).split('-'),t=todayStr().split('-');
+  return p[0]===t[0] ? (+p[1])+'月'+(+p[2])+'日' : fmtCN(ds);
+}
+function weekdayCN(){var d=new Date();return '星期'+'日一二三四五六'.charAt(d.getDay());}
+function wrapGame(g){g=String(g);return (g.indexOf('《')>-1||g.indexOf('〈')>-1)?g:'《'+g+'》';}
+function playersOf(r){return Array.isArray(r.players)?r.players:[];}
+function sortedRecords(){
+  return records.slice().sort(function(a,b){
+    return a.date===b.date ? (b.createdAt||0)-(a.createdAt||0) : (a.date<b.date?1:-1);
+  });
+}
+
+/* ————— 存取（JSON 容错） ————— */
+function loadData(){
+  try{
+    var raw=localStorage.getItem(STORE_KEY);
+    if(raw===null){return SAMPLE_RECORDS.slice();}
+    var data=JSON.parse(raw);
+    if(!Array.isArray(data)){throw new Error('bad data');}
+    return data.filter(function(r){
+      return r && typeof r==='object' && typeof r.game==='string' && typeof r.date==='string' && typeof r.section==='string';
+    });
+  }catch(e){
+    var fresh=SAMPLE_RECORDS.slice();
+    try{localStorage.setItem(STORE_KEY,JSON.stringify(fresh));}catch(e2){}
+    return fresh;
+  }
+}
+function saveData(){
+  try{localStorage.setItem(STORE_KEY,JSON.stringify(records));}catch(e){}
+}
+
+/* ————— 统计 ————— */
+function stats(list){
+  var s={total:list.length,win:0,loss:0,draw:0,none:0};
+  list.forEach(function(r){
+    if(RESULTS[r.result] && s[r.result]!==undefined){s[r.result]++;}
+  });
+  var denom=s.win+s.loss+s.draw;
+  s.rate=denom?Math.round(s.win/denom*100):null;
+  return s;
+}
+function longestStreak(){
+  var asc=records.slice().sort(function(a,b){
+    return a.date===b.date ? (a.createdAt||0)-(b.createdAt||0) : (a.date<b.date?-1:1);
+  });
+  var max=0,cur=0;
+  asc.forEach(function(r){
+    if(r.result==='win'){cur++;if(cur>max){max=cur;}}else{cur=0;}
+  });
+  return max;
+}
+function peopleStats(){
+  var map={},arr=[];
+  sortedRecords().forEach(function(r){
+    playersOf(r).forEach(function(n){
+      n=String(n).trim();if(!n){return;}
+      var p=map[n];
+      if(!p){p=map[n]={name:n,count:0,secs:{},lastDate:r.date,lastRecord:r};arr.push(p);}
+      p.count++;
+      p.secs[r.section]=(p.secs[r.section]||0)+1;
+      if(r.date>p.lastDate){p.lastDate=r.date;p.lastRecord=r;}
+    });
+  });
+  arr.sort(function(a,b){
+    return (b.count-a.count) || (b.lastDate>a.lastDate?1:-1);
+  });
+  arr.forEach(function(p){
+    var best=null,bestN=0;
+    SECTIONS.forEach(function(s){
+      var n=p.secs[s.key]||0;
+      if(n>bestN){bestN=n;best=s.key;}
+    });
+    p.topSection=best;
+  });
+  return arr;
+}
+function sectionCount(key){
+  return records.filter(function(r){return r.section===key;}).length;
+}
+function sectionPage(key){
+  var n=2;
+  for(var i=0;i<SECTIONS.length;i++){
+    if(SECTIONS[i].key===key){break;}
+    n+=sectionCount(SECTIONS[i].key);
+  }
+  return n;
+}
+
+/* ————— 视图切换 ————— */
+function switchView(view,key){
+  if(view==='submit' && currentView!=='submit'){
+    lastView={view:currentView,key:currentKey};
+  }
+  currentView=view;
+  if(view==='section'){
+    if(!key||!SEC_MAP[key]){key='mobile';}
+    currentKey=key;
+  }
+  document.body.setAttribute('data-view',view);
+  $all('.view').forEach(function(v){v.classList.remove('active');});
+  var target=$('view-'+view);
+  if(target){target.classList.add('active');}
+  if(view==='section'){renderSection(currentKey);}
+  updateNav();
+  window.scrollTo(0,0);
+}
+function updateNav(){
+  $all('.nav-link').forEach(function(b){
+    var v=b.getAttribute('data-view'),k=b.getAttribute('data-key');
+    b.classList.toggle('active',v===currentView && (v!=='section'||k===currentKey));
+  });
+  $('navPublish').classList.toggle('active',currentView==='submit');
+}
+
+/* ————— 头版渲染 ————— */
+function renderFront(){
+  var recs=sortedRecords();
+  var total=recs.length;
+  $('fwNum').textContent=total;
+  $('fwLead').textContent=total
+    ? '从第 1 局到第 '+total+' 局，我们围坐过桌边，也并肩穿过峡谷与客厅。这本刊物不急着追胜负——它只想把那些「一起玩」的时间，一局一局，慢慢留下来。'
+    : '第一局还没发生，但头版已经留好位置。发一篇稿，第 1 期就从今天开始。';
+  renderFeature(recs);
+  renderBrief(recs);
+  renderToc();
+  renderMates();
+  var hasSample=records.some(function(r){return r.isSample;});
+  $('sampleClearWrap').style.display=hasSample?'':'none';
+  hideInlineConfirm();
+}
+function renderFeature(recs){
+  var r=recs[0];
+  var mount=$('featureMount');
+  if(!r){
+    $('featureNote').textContent='虚位以待 · Awaiting the First Story';
+    mount.innerHTML=
+      '<figure class="story-frame"><span class="fc fc1"></span><span class="fc fc2"></span><span class="fc fc3"></span><span class="fc fc4"></span>'+
+      '<div class="inner"><span class="frame-cross" aria-hidden="true"></span>'+
+      '<p class="frame-title">第 1 局 · 待冲印</p><p class="frame-en">Your First Game Awaits</p>'+
+      '<p class="frame-note"><b>发一篇稿</b> · 让它成为头条</p></div></figure>'+
+      '<div class="story-text"><span class="label">头条 · Front Page</span>'+
+      '<h3 class="story-title">第一篇稿，<br>会成为头版头条</h3>'+
+      '<p class="meta story-meta">任何版块 · 任何一局 · 任何结果</p>'+
+      '<p class="story-lead">刚打完的那一局还热着——趁记忆新鲜，把它写成小稿，寄给编辑部。</p>'+
+      '<button class="story-more" type="button" data-goto-submit>去发稿 · File a Game →</button></div>';
+    return;
+  }
+  var cfg=SEC_MAP[r.section]||SECTIONS[0];
+  $('featureNote').textContent=cfg.cn+' · '+cfg.en+' · P.'+pad2(sectionPage(r.section));
+  var lead=r.lead||r.body||r.highlight||'';
+  if(lead.length>100){lead=lead.slice(0,100)+'……';}
+  var pl=playersOf(r);
+  var playersLine=pl.length?('同队：'+esc(pl.join('、'))):'独自上场';
+  var shortTitle=r.title.length>14?r.title.slice(0,14)+'…':r.title;
+  var kvH=r.highlight?'<p class="kv"><span class="kv-k">亮点时刻 · Highlight</span>'+esc(r.highlight)+'</p>':'';
+  var kvL=r.learned?'<p class="kv"><span class="kv-k">学到的事 · Learned</span>'+esc(r.learned)+'</p>':'';
+  var sampleTag=r.isSample?' <span class="badge-sample">示例</span>':'';
+  mount.innerHTML=
+    '<figure class="story-frame"><span class="fc fc1"></span><span class="fc fc2"></span><span class="fc fc3"></span><span class="fc fc4"></span>'+
+    '<div class="inner"><span class="frame-cross" aria-hidden="true"></span>'+
+    '<p class="frame-title">对局照片 · 待冲印</p><p class="frame-en">Space for Game Photograph</p>'+
+    '<p class="frame-note"><b>第 '+recs.length+' 局</b> · '+esc(shortTitle)+' · '+fmtDot(r.date)+'</p></div></figure>'+
+    '<div class="story-text"><span class="label">头条 · Front Page</span>'+
+    '<h3 class="story-title">'+esc(r.title)+sampleTag+'</h3>'+
+    '<p class="meta story-meta">'+wrapGame(esc(r.game))+' · '+fmtCN(r.date)+' · '+playersLine+'</p>'+
+    '<p class="story-lead">'+esc(lead)+'</p>'+
+    ((kvH||kvL)?'<div class="story-kv">'+kvH+kvL+'</div>':'')+
+    '<button class="story-more" type="button" data-goto="'+cfg.key+'">在'+cfg.cn+'阅读整局复盘 →</button></div>';
+}
+function renderBrief(recs){
+  var list=recs.slice(1,5);
+  $('briefSec').style.display=list.length?'':'none';
+  $('briefGrid').innerHTML=list.map(function(r){
+    var cfg=SEC_MAP[r.section]||SECTIONS[0];
+    var ex=r.lead||r.highlight||r.learned||r.body||'';
+    if(ex.length>64){ex=ex.slice(0,64)+'……';}
+    var pl=playersOf(r);
+    return '<article class="brief-item">'+
+      '<span class="tag">'+cfg.cnShort+' · '+cfg.en+'</span>'+
+      '<h3>'+esc(r.title)+(r.isSample?' <span class="badge-sample">示例</span>':'')+'</h3>'+
+      '<p class="meta">'+wrapGame(esc(r.game))+' · '+fmtShort(r.date)+' · '+(pl.length?esc(pl.join('、')):'独自')+'</p>'+
+      '<p class="excerpt">'+esc(ex)+'</p></article>';
+  }).join('');
+}
+function renderToc(){
+  $('tocList').innerHTML=SECTIONS.map(function(cfg){
+    var n=sectionCount(cfg.key);
+    var page=sectionPage(cfg.key);
+    return '<li class="toc-row" data-goto="'+cfg.key+'" tabindex="0" role="button">'+
+      '<span class="toc-no">'+pad2(page)+'</span>'+
+      '<div class="toc-body"><span class="toc-name">'+cfg.cnShort+'<em>'+cfg.en+'</em></span>'+
+      '<span class="toc-desc">'+(n?('已收录 '+n+' 局 · '):'暂无记录 · ')+esc(cfg.desc)+'</span></div>'+
+      '<span class="toc-dots"></span><span class="toc-page">P.'+pad2(page)+'</span></li>';
+  }).join('');
+}
+function renderMates(){
+  var ps=peopleStats();
+  $('matesHeadNote').textContent='在场 '+ps.length+' 人 · Present';
+  var mount=$('matesMount');
+  if(!ps.length){
+    mount.innerHTML=
+      '<div class="mates-body is-empty"><figure class="mates-photo"><span>虚位以待</span></figure>'+
+      '<div class="mates-info"><span class="mates-tag">第一位玩伴 · To Be Met</span>'+
+      '<h4 class="mates-name">虚位以待</h4>'+
+      '<p class="meta">同玩 0 局 · 还没开始</p>'+
+      '<p class="excerpt">发第一篇稿，让第一个名字出现在这里。</p></div></div>'+
+      '<p class="mates-note">本栏目长期征稿：把你身边的玩伴，介绍给编辑部。</p>';
+    return;
+  }
+  var p=ps[0];
+  var topSec=SEC_MAP[p.topSection]||SECTIONS[0];
+  var imp=(p.lastRecord&&(p.lastRecord.learned||p.lastRecord.highlight))||'';
+  mount.innerHTML=
+    '<div class="mates-body"><figure class="mates-photo"><span>'+esc(p.name)+' · 照片待补</span></figure>'+
+    '<div class="mates-info"><span class="mates-tag">本期人物 · Profile</span>'+
+    '<h4 class="mates-name">'+esc(p.name)+'</h4>'+
+    '<p class="meta">同玩 '+p.count+' 局 · 常在'+topSec.cn+'</p>'+
+    '<p class="excerpt">'+(imp?esc(imp):'翻开过去几期，页页有他。下一局，还约。')+'</p></div></div>'+
+    '<p class="mates-note">本栏目长期征稿：把你身边的玩伴，介绍给编辑部。</p>';
+}
+
+/* ————— 版块页渲染 ————— */
+function renderSection(key){
+  if(!key||!SEC_MAP[key]){key='mobile';}
+  currentKey=key;
+  var cfg=SEC_MAP[key];
+  var list=sortedRecords().filter(function(r){return r.section===key;});
+  var st=stats(list);
+  var page=sectionPage(key);
+  var rateTxt=st.rate==null?'—':st.rate+'%';
+  var html=
+    '<div class="sec-hero"><div><h2 class="sec-title">'+cfg.cn+
+    '<span class="sec-en">'+cfg.en+' · P.'+pad2(page)+'</span></h2>'+
+    '<p class="meta sec-desc">'+esc(cfg.desc)+'</p></div>'+
+    '<p class="sec-stats">共 <b>'+st.total+'</b> 局 · 胜 <b>'+st.win+'</b> · 负 <b>'+st.loss+
+    '</b> · 平 <b>'+st.draw+'</b> · 无关 <b>'+st.none+'</b> · 胜率 <b class="rate">'+rateTxt+'</b></p></div>';
+  if(list.length){
+    html+='<ol class="articles">';
+    list.forEach(function(r,i){
+      var pl=playersOf(r);
+      var kvH=r.highlight?'<p class="kv"><span class="kv-k">亮点 · Highlight</span>'+esc(r.highlight)+'</p>':'';
+      var kvL=r.learned?'<p class="kv"><span class="kv-k">学到 · Learned</span>'+esc(r.learned)+'</p>':'';
+      var kv=(kvH||kvL)?'<div class="article-kv">'+kvH+kvL+'</div>':'';
+      var bodyHtml=r.body?'<div class="article-body" hidden><p>'+esc(r.body)+'</p></div>':'';
+      var toggle=r.body?'<span class="article-toggle">展开复盘 ↓</span>':'';
+      var resTxt=RESULTS[r.result]||'—';
+      html+='<li class="article">'+
+        '<div class="article-head" data-toggle role="button" tabindex="0">'+
+        '<div class="article-top"><span class="article-no">No.'+pad2(i+1)+'</span>'+
+        '<h3 class="article-title">'+esc(r.title)+(r.isSample?'<span class="badge-sample">示例</span>':'')+'</h3>'+
+        '<span class="result-label r-'+esc(r.result)+'">'+resTxt+'</span></div>'+
+        '<p class="article-meta">'+wrapGame(esc(r.game))+' · '+fmtCN(r.date)+' · '+(pl.length?('同队：'+esc(pl.join('、'))):'独自上场')+'</p>'+
+        kv+toggle+'</div>'+bodyHtml+'</li>';
+    });
+    html+='</ol>';
+  }else{
+    html+='<div class="empty-frame"><span class="fc fc1"></span><span class="fc fc2"></span><span class="fc fc3"></span><span class="fc fc4"></span>'+
+      '<span class="frame-cross" aria-hidden="true"></span>'+
+      '<p class="frame-title">本版暂无记录</p>'+
+      '<p class="frame-en">Nothing filed under this desk yet</p>'+
+      '<button class="story-more" type="button" data-goto-submit>去发一篇稿 →</button></div>';
+  }
+  $('sectionMount').innerHTML=html;
+}
+
+/* ————— 人物版渲染 ————— */
+function renderPeople(){
+  var ps=peopleStats();
+  var mount=$('peopleList');
+  if(!ps.length){
+    mount.innerHTML='<div class="empty-frame"><span class="fc fc1"></span><span class="fc fc2"></span><span class="fc fc3"></span><span class="fc fc4"></span>'+
+      '<span class="frame-cross" aria-hidden="true"></span>'+
+      '<p class="frame-title">还没有玩伴登场</p>'+
+      '<p class="frame-en">No playmates on the record yet</p>'+
+      '<button class="story-more" type="button" data-goto-submit>去发第一篇稿 →</button></div>';
+    return;
+  }
+  mount.innerHTML=ps.map(function(p,i){
+    var top=(i===0);
+    var imp=(p.lastRecord&&(p.lastRecord.learned||p.lastRecord.highlight))||'';
+    var secs=SECTIONS.filter(function(s){return p.secs[s.key];})
+      .map(function(s){return s.cnShort+' '+p.secs[s.key];}).join(' · ');
+    var lr=p.lastRecord;
+    return '<article class="person'+(top?' is-top':'')+'">'+
+      '<span class="person-no">No.'+pad2(i+1)+'</span>'+
+      '<div class="person-id">'+
+      (top?'<span class="mates-tag">本期人物 · Profile</span>':'')+
+      '<h3 class="person-name">'+esc(p.name)+'</h3>'+
+      '<p class="meta">同玩 '+p.count+' 局 · 常玩'+(p.topSection?SEC_MAP[p.topSection].cn:'—')+' · 最近同玩 '+fmtCN(p.lastDate)+'</p></div>'+
+      '<div class="person-quote"><span class="label">一句话印象 · From the Last Game</span>'+
+      '<p class="quote">'+(imp?('「'+esc(imp)+'」'):'这一页，等你们下一局来写。')+'</p>'+
+      (lr?('<p class="meta">—— '+fmtCN(lr.date)+' · '+wrapGame(esc(lr.game))+'</p>'):'')+
+      (secs?('<p class="person-sec">版块分布 · '+secs+'</p>'):'')+
+      '</div></article>';
+  }).join('');
+}
+
+/* ————— 成长版渲染 ————— */
+function renderGrowth(){
+  var recs=sortedRecords();
+  var st=stats(records);
+  var ps=peopleStats();
+  $('gNumGames').textContent=st.total;
+  $('gNumRate').textContent=st.rate==null?'—':st.rate+'%';
+  $('gNumMates').textContent=ps.length;
+  $('gNumStreak').textContent=longestStreak();
+  var maxN=1;
+  SECTIONS.forEach(function(s){maxN=Math.max(maxN,sectionCount(s.key));});
+  $('chartGames').innerHTML=SECTIONS.map(function(s){
+    var n=sectionCount(s.key);
+    var w=Math.round(n/maxN*100);
+    return '<div class="chart-row"><span class="chart-name">'+s.cnShort+'<em>'+s.en+'</em></span>'+
+      '<div class="bar-track"><div class="bar-fill" style="width:'+w+'%"></div></div>'+
+      '<span class="bar-num">'+n+'</span></div>';
+  }).join('');
+  $('chartRates').innerHTML=SECTIONS.map(function(s){
+    var ss=stats(records.filter(function(r){return r.section===s.key;}));
+    var w=ss.rate||0;
+    return '<div class="chart-row"><span class="chart-name">'+s.cnShort+'<em>'+s.en+'</em></span>'+
+      '<div class="bar-track thin"><div class="bar-fill" style="width:'+w+'%"></div></div>'+
+      '<span class="bar-num">'+(ss.rate==null?'—':ss.rate+'%')+'</span></div>';
+  }).join('');
+  var tr=recs.slice(0,10);
+  $('trackList').innerHTML=tr.length?tr.map(function(r){
+    var mark=r.result==='win'?'<span class="t-dot win" aria-hidden="true"></span>'
+      :r.result==='loss'?'<span class="t-dot loss" aria-hidden="true"></span>'
+      :'<span class="t-dash" aria-hidden="true"></span>';
+    return '<li class="track-row">'+mark+
+      '<span class="t-date">'+fmtDot(r.date)+'</span>'+
+      '<span class="t-game">'+esc(r.game)+'</span>'+
+      '<span class="t-result">'+(RESULTS[r.result]||'—')+'</span></li>';
+  }).join(''):'<li class="track-empty">暂无轨迹 · 先发一篇稿，让序列开始</li>';
+}
+
+/* ————— 全量渲染 ————— */
+function renderAll(){
+  var total=records.length;
+  var ps=peopleStats();
+  $all('.js-issue').forEach(function(el){el.textContent='ISSUE '+total;});
+  $all('.js-issuenum').forEach(function(el){el.textContent=total;});
+  $all('.js-today').forEach(function(el){el.textContent=fmtCN(todayStr())+' · '+weekdayCN();});
+  $all('.js-today-dot').forEach(function(el){el.textContent=fmtDot(todayStr());});
+  $all('.js-mates-count').forEach(function(el){el.textContent=ps.length;});
+  renderFront();
+  renderSection(currentKey);
+  renderPeople();
+  renderGrowth();
+}
+
+/* ————— 提示细条 ————— */
+function showToast(text){
+  $('toastText').textContent=text;
+  var t=$('toast');
+  t.classList.add('show');
+  if(toastTimer){clearTimeout(toastTimer);}
+  toastTimer=setTimeout(function(){t.classList.remove('show');},3000);
+}
+
+/* ————— 展开收起 ————— */
+function toggleArticle(head){
+  var art=head.closest('.article');
+  if(!art){return;}
+  var body=art.querySelector('.article-body');
+  if(!body){return;}
+  var opening=body.hidden;
+  body.hidden=!opening;
+  var t=art.querySelector('.article-toggle');
+  if(t){t.textContent=opening?'收起复盘 ↑':'展开复盘 ↓';}
+}
+
+/* ————— 表单 ————— */
+function setErr(id,msg){
+  var f=$(id);
+  f.classList.add('err');
+  var p=f.querySelector('.ferr');
+  if(p){p.textContent=msg;p.hidden=false;}
+}
+function clearErr(id){
+  var f=$(id);
+  f.classList.remove('err');
+  var p=f.querySelector('.ferr');
+  if(p){p.hidden=true;}
+}
+function addTag(v){
+  v=String(v==null?'':v).trim();
+  if(!v){return;}
+  if(playerNames.indexOf(v)>-1){return;}
+  playerNames.push(v);
+  renderTags();
+}
+function renderTags(){
+  var wrap=$('playerTags');
+  var input=$('f-players');
+  $all('.ptag',wrap).forEach(function(t){t.parentNode.removeChild(t);});
+  playerNames.forEach(function(n){
+    var s=document.createElement('span');
+    s.className='ptag';
+    var txt=document.createElement('span');
+    txt.textContent=n;
+    var b=document.createElement('button');
+    b.type='button';
+    b.className='ptag-x';
+    b.setAttribute('aria-label','删除队友 '+n);
+    b.textContent='×';
+    b.addEventListener('click',function(){
+      playerNames=playerNames.filter(function(x){return x!==n;});
+      renderTags();
+    });
+    s.appendChild(txt);
+    s.appendChild(b);
+    wrap.insertBefore(s,input);
+  });
+}
+function initForm(){
+  var form=$('submitForm');
+  $('f-date').value=todayStr();
+  var fGame=$('f-game');
+  fGame.addEventListener('input',function(){clearErr('fld-game');});
+  $('f-date').addEventListener('change',function(){clearErr('fld-date');});
+  $all('input[name="f-section"]').forEach(function(r){
+    r.addEventListener('change',function(){clearErr('fld-section');});
+  });
+  var tagInput=$('f-players');
+  var tagWrap=$('playerTags');
+  tagWrap.addEventListener('click',function(e){
+    if(e.target===tagWrap){tagInput.focus();}
+  });
+  tagInput.addEventListener('input',function(){
+    var v=this.value;
+    if(v.indexOf('，')>-1||v.indexOf(',')>-1){
+      var parts=v.split(/[,，]/);
+      this.value=parts.pop();
+      parts.forEach(function(p){addTag(p);});
+    }
+  });
+  tagInput.addEventListener('keydown',function(e){
+    if(e.isComposing){return;}
+    if(e.key==='Enter'){
+      e.preventDefault();
+      addTag(this.value);
+      this.value='';
+    }else if(e.key==='Backspace' && !this.value && playerNames.length){
+      playerNames.pop();
+      renderTags();
+    }
+  });
+  tagInput.addEventListener('blur',function(){
+    addTag(this.value);
+    this.value='';
+  });
+  $('btnCancel').addEventListener('click',function(){
+    var v=lastView.view==='submit'?'front':lastView.view;
+    switchView(v,lastView.key);
+  });
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var ok=true;
+    var game=fGame.value.trim();
+    var secEl=form.querySelector('input[name="f-section"]:checked');
+    var sec=secEl?secEl.value:'';
+    var date=$('f-date').value;
+    if(!game){setErr('fld-game','请填写游戏名——这是发稿的最低门槛');ok=false;}
+    if(!sec){setErr('fld-section','请选择一个版块');ok=false;}
+    if(!date){setErr('fld-date','请选择日期');ok=false;}
+    if(!ok){return;}
+    var resEl=form.querySelector('input[name="f-result"]:checked');
+    var title=$('f-title').value.trim()||(game+'·'+date+'的记录');
+    var rec={
+      id:'r'+Date.now()+Math.floor(Math.random()*1000),
+      title:title,game:game,section:sec,date:date,
+      players:playerNames.slice(),
+      result:resEl?resEl.value:'none',
+      lead:'',
+      body:$('f-body').value.trim(),
+      highlight:$('f-highlight').value.trim(),
+      learned:$('f-learned').value.trim(),
+      isSample:false,
+      createdAt:Date.now()
+    };
+    records.push(rec);
+    saveData();
+    renderAll();
+    form.reset();
+    $('f-date').value=todayStr();
+    playerNames=[];
+    renderTags();
+    switchView('front');
+    showToast('已发稿 · 收录于 ISSUE '+records.length);
+  });
+}
+
+/* ————— 清空示例刊（行内确认） ————— */
+function hideInlineConfirm(){
+  $('inlineConfirm').hidden=true;
+  $('btnClearSample').hidden=false;
+}
+function initSampleClear(){
+  $('btnClearSample').addEventListener('click',function(){
+    this.hidden=true;
+    $('inlineConfirm').hidden=false;
+  });
+  $('btnCancelClear').addEventListener('click',hideInlineConfirm);
+  $('btnConfirmClear').addEventListener('click',function(){
+    records=records.filter(function(r){return !r.isSample;});
+    saveData();
+    renderAll();
+    hideInlineConfirm();
+    showToast('示例刊已清空 · 这一页归你了');
+  });
+}
+
+/* ————— 事件委托 ————— */
+function initDelegation(){
+  document.addEventListener('click',function(e){
+    var el=e.target&&e.target.closest?e.target.closest('[data-toggle]'):null;
+    if(el){toggleArticle(el);return;}
+    el=e.target&&e.target.closest?e.target.closest('[data-goto]'):null;
+    if(el){switchView('section',el.getAttribute('data-goto'));return;}
+    el=e.target&&e.target.closest?e.target.closest('[data-goto-submit]'):null;
+    if(el){switchView('submit');return;}
+  });
+  document.addEventListener('keydown',function(e){
+    if((e.key==='Enter'||e.key===' ') && e.target && e.target.matches &&
+       e.target.matches('.article-head,.toc-row')){
+      e.preventDefault();
+      e.target.click();
+    }
+  });
+}
+
+/* ————— 启动 ————— */
+function init(){
+  initForm();
+  initSampleClear();
+  initDelegation();
+  var nl=$('navLinks');
+  nl.addEventListener('click',function(e){
+    var b=e.target&&e.target.closest?e.target.closest('.nav-link'):null;
+    if(!b){return;}
+    switchView(b.getAttribute('data-view'),b.getAttribute('data-key'));
+  });
+  $('navPublish').addEventListener('click',function(){switchView('submit');});
+  renderAll();
+  switchView('front');
+}
+init();
+
+})();
+</script>
+</body>
+</html>
