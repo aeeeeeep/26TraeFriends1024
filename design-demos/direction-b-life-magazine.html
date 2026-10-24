@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玩伴志 · PLAYMATES JOURNAL — VOL.03 ISSUE 47</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&family=Noto+Serif+SC:wght@400;600&display=swap');
+
+:root{
+  --cream:#faf6ef;
+  --ink:#2e2a24;
+  --ink-soft:#6a6255;
+  --line:#ddd5c3;
+  --line-mid:#c4bba6;
+  --line-faint:#efe8d8;
+  --tea:#8a5a3b;       /* 茶褐 · 仅用于开篇数字 47 */
+  --sage:#5f6d4f;      /* 鼠尾草绿 · 仅用于玩伴栏 */
+  --serif:'Cormorant Garamond','Noto Serif SC','Songti SC','STSong','SimSun',serif;
+  --sans:'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
+  --num:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{
+  background:var(--cream);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.9;
+}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{font-weight:600;line-height:1.5}
+ol,ul{list-style:none}
+
+.page{max-width:1200px;margin:0 auto;padding:26px 48px 44px}
+
+/* ————— 通用小构件 ————— */
+.label{
+  font-family:var(--sans);
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:.24em;
+  color:var(--ink-soft);
+  text-transform:uppercase;
+}
+.meta{font-size:14px;color:var(--ink-soft);letter-spacing:.02em}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);column-gap:36px}
+
+/* 区块题头：粗顶线 + 中英对照 */
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  border-top:2px solid var(--ink);
+  padding-top:12px;
+  margin-bottom:30px;
+}
+.sh-cn{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:.06em}
+.sh-cn .sh-en{
+  font-family:var(--num);
+  font-style:italic;
+  font-weight:500;
+  font-size:15px;
+  letter-spacing:.14em;
+  color:var(--ink-soft);
+  margin-left:10px;
+}
+.sh-note{font-size:11px;letter-spacing:.2em;color:var(--ink-soft);text-transform:uppercase}
+
+/* ————— 页眉刊号条 ————— */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  border-bottom:1px solid var(--ink);
+  padding-bottom:12px;
+  font-size:11px;
+  letter-spacing:.22em;
+  color:var(--ink-soft);
+  text-transform:uppercase;
+}
+.topbar-mid{color:var(--ink);letter-spacing:.3em}
+
+/* ————— 刊头 ————— */
+.masthead{text-align:center;padding:54px 0 42px}
+.mast-tag{font-size:13px;letter-spacing:.5em;text-indent:.5em;color:var(--ink-soft)}
+.mast-name{
+  font-family:var(--serif);
+  font-size:clamp(62px,7.6vw,102px);
+  font-weight:600;
+  letter-spacing:.22em;
+  text-indent:.22em;
+  line-height:1.25;
+  margin-top:14px;
+}
+.mast-en{
+  font-size:13px;
+  font-weight:500;
+  letter-spacing:.62em;
+  text-indent:.62em;
+  color:var(--ink);
+  margin-top:10px;
+}
+.mast-rule{display:flex;align-items:center;justify-content:center;gap:16px;margin:26px auto 18px}
+.mast-rule .rl{width:120px;height:1px;background:var(--line-mid)}
+.mast-rule .dm{font-size:10px;color:#a89d88;line-height:1}
+.mast-meta{font-size:14px;letter-spacing:.1em;color:var(--ink-soft)}
+.mast-meta .sep{margin:0 12px;color:#b3a98f}
+
+/* ————— 开篇：大数字 + 大标题 ————— */
+.foreword{margin-top:26px;align-items:center}
+.fw-left{grid-column:1/7;display:flex;gap:26px;align-items:stretch}
+.fw-number{display:flex;flex-direction:column}
+.fw-num-cap{font-size:11px;letter-spacing:.28em;color:var(--ink-soft)}
+.fw-num{
+  font-family:var(--num);
+  font-size:clamp(180px,16.5vw,262px);
+  font-weight:500;
+  line-height:.82;
+  letter-spacing:-.02em;
+  color:var(--tea);
+  margin-top:6px;
+}
+.fw-num-en{font-size:10.5px;letter-spacing:.22em;color:var(--ink-soft);margin-top:10px;text-transform:uppercase}
+.fw-vertical{
+  writing-mode:vertical-rl;
+  font-size:12px;
+  letter-spacing:.52em;
+  color:var(--ink-soft);
+  padding-top:14px;
+  border-left:1px solid var(--line);
+  padding-left:18px;
+}
+.fw-right{grid-column:7/13;padding-left:10px}
+.fw-title{
+  font-family:var(--serif);
+  font-size:clamp(32px,3.4vw,48px);
+  line-height:1.55;
+  margin-top:16px;
+}
+.fw-en{font-size:11px;letter-spacing:.3em;color:var(--ink-soft);margin-top:16px;text-transform:uppercase}
+.fw-lead{
+  font-size:15px;
+  line-height:2.15;
+  color:var(--ink-soft);
+  margin-top:26px;
+  max-width:36em;
+}
+
+/* ————— 本期主打 ————— */
+.story{margin-top:74px}
+.story-frame{grid-column:1/8;position:relative;border:1px solid var(--line-mid);padding:12px;aspect-ratio:3/2}
+.story-frame .inner{
+  height:100%;
+  border:1px solid var(--line);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  gap:5px;
+  padding:20px;
+}
+.fc{position:absolute;width:13px;height:13px}
+.fc1{top:-5px;left:-5px;border-top:1.5px solid var(--ink);border-left:1.5px solid var(--ink)}
+.fc2{top:-5px;right:-5px;border-top:1.5px solid var(--ink);border-right:1.5px solid var(--ink)}
+.fc3{bottom:-5px;left:-5px;border-bottom:1.5px solid var(--ink);border-left:1.5px solid var(--ink)}
+.fc4{bottom:-5px;right:-5px;border-bottom:1.5px solid var(--ink);border-right:1.5px solid var(--ink)}
+.frame-cross{position:relative;width:22px;height:22px;margin-bottom:14px}
+.frame-cross::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line-mid)}
+.frame-cross::after{content:'';position:absolute;top:50%;left:0;right:0;height:1px;background:var(--line-mid)}
+.frame-title{font-size:14px;letter-spacing:.3em;text-indent:.3em;color:var(--ink-soft)}
+.frame-en{font-size:10px;letter-spacing:.24em;color:var(--ink-soft);text-transform:uppercase}
+.frame-note{font-size:11.5px;letter-spacing:.16em;color:var(--ink-soft);margin-top:14px}
+.frame-note b{font-weight:600;color:var(--ink)}
+.story-text{grid-column:8/13;padding-top:8px}
+.story-title{font-family:var(--serif);font-size:clamp(27px,2.7vw,37px);line-height:1.55}
+.story-meta{margin-top:18px}
+.story-lead{font-size:15.5px;line-height:2.15;margin-top:22px}
+.story-more{
+  display:inline-block;
+  margin-top:36px;
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:.14em;
+  border-bottom:1px solid var(--ink);
+  padding-bottom:7px;
+}
+
+/* ————— 要闻摘要 ————— */
+.brief{margin-top:74px}
+.brief-grid{display:grid;grid-template-columns:repeat(3,1fr)}
+.brief-item{padding:0 34px}
+.brief-item:first-child{padding-left:0}
+.brief-item:last-child{padding-right:0}
+.brief-item + .brief-item{border-left:1px solid var(--line)}
+.brief-item .tag{font-size:11px;letter-spacing:.22em;color:var(--ink-soft);text-transform:uppercase}
+.brief-item h3{font-family:var(--serif);font-size:22px;margin:12px 0 6px}
+.brief-item .meta{font-size:14px}
+.brief-item .excerpt{font-size:15px;line-height:2.05;margin-top:12px}
+
+/* ————— 目录 + 玩伴栏 ————— */
+.lower{margin-top:74px}
+.contents{grid-column:1/8}
+.toc-row{display:flex;align-items:flex-end;gap:14px;padding:15px 0}
+.toc-row + .toc-row{border-top:1px solid var(--line-faint)}
+.toc-no{font-family:var(--num);font-style:italic;font-size:16px;color:var(--ink-soft);width:26px;flex:none}
+.toc-body{flex:none;max-width:62%}
+.toc-name{font-family:var(--serif);font-size:17px;font-weight:600;letter-spacing:.04em}
+.toc-name em{
+  font-family:var(--num);
+  font-style:italic;
+  font-weight:500;
+  font-size:13px;
+  letter-spacing:.12em;
+  color:var(--ink-soft);
+  margin-left:9px;
+}
+.toc-desc{display:block;font-size:14px;color:var(--ink-soft);margin-top:1px}
+.toc-dots{flex:1;border-bottom:1px dotted #b8ae99;margin:0 2px 7px}
+.toc-page{font-family:var(--num);font-style:italic;font-size:15px;flex:none}
+
+.mates{grid-column:8/13;border-left:1px solid var(--line);padding-left:40px}
+.mates-body{display:flex;gap:26px;align-items:flex-start}
+.mates-photo{
+  flex:none;
+  width:74px;
+  aspect-ratio:3/4;
+  border:1px solid var(--line-mid);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.mates-photo span{
+  writing-mode:vertical-rl;
+  font-size:10.5px;
+  letter-spacing:.32em;
+  color:var(--ink-soft);
+}
+.mates-tag{font-size:11px;letter-spacing:.24em;color:var(--sage);text-transform:uppercase;font-weight:500}
+.mates-name{font-family:var(--serif);font-size:32px;margin-top:10px}
+.mates-name::after{content:'';display:block;width:36px;height:2px;background:var(--sage);margin-top:9px}
+.mates-info .meta{margin-top:12px}
+.mates-info .excerpt{font-size:15px;line-height:2.05;margin-top:14px;color:var(--ink-soft)}
+.mates-note{
+  margin-top:30px;
+  padding-top:15px;
+  border-top:1px solid var(--line);
+  font-size:11px;
+  letter-spacing:.18em;
+  color:var(--ink-soft);
+  line-height:2;
+}
+
+/* ————— 发稿（投稿） ————— */
+.submit{
+  margin-top:84px;
+  border-top:1px solid var(--ink);
+  border-bottom:1px solid var(--ink);
+  padding:46px 0 44px;
+  text-align:center;
+}
+.submit-title{font-family:var(--serif);font-size:23px;margin-top:14px}
+.btn-submit{
+  margin-top:32px;
+  font-family:var(--sans);
+  font-size:15px;
+  font-weight:600;
+  letter-spacing:.42em;
+  text-indent:.42em;
+  color:var(--ink);
+  background:none;
+  border:1.5px solid var(--ink);
+  padding:16px 52px;
+  cursor:pointer;
+  transition:background .25s ease,color .25s ease;
+}
+.btn-submit:hover{background:var(--ink);color:var(--cream)}
+.submit-note{font-size:11px;letter-spacing:.2em;color:var(--ink-soft);margin-top:24px}
+
+/* ————— 页脚 ————— */
+.foot{margin-top:62px}
+.foot-rule{height:5px;border-top:2px solid var(--ink);border-bottom:1px solid var(--ink)}
+.foot-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  margin-top:14px;
+  font-size:11px;
+  letter-spacing:.18em;
+  color:var(--ink-soft);
+  text-transform:uppercase;
+}
+.foot-motto{
+  text-align:center;
+  font-family:var(--serif);
+  font-size:14px;
+  letter-spacing:.14em;
+  color:var(--ink-soft);
+  margin-top:26px;
+}
+
+/* ————— 窄屏兜底 ————— */
+@media (max-width:1024px){
+  .page{padding:20px 26px 36px}
+  .topbar-mid{display:none}
+  .fw-left,.fw-right,.story-frame,.story-text,.contents,.mates{grid-column:1/13}
+  .fw-right{margin-top:40px;padding-left:0}
+  .story-text{margin-top:34px}
+  .mates{border-left:none;padding-left:0;margin-top:56px}
+  .brief-grid{grid-template-columns:1fr}
+  .brief-item{padding:0}
+  .brief-item + .brief-item{border-left:none;border-top:1px solid var(--line);margin-top:26px;padding-top:26px}
+}
+@media (max-width:560px){
+  .page{padding:16px 18px 30px}
+  .mast-name{letter-spacing:.12em;text-indent:.12em}
+  .mast-meta .sep{margin:0 6px}
+  .fw-vertical{display:none}
+  .toc-desc{display:none}
+  .mates-body{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- 页眉刊号 -->
+  <header class="topbar">
+    <span>温柔地玩 · 认真地记</span>
+    <span class="topbar-mid">PLAYMATES JOURNAL · A SLOW JOURNAL OF GAMES</span>
+    <span>VOL.03 — ISSUE 47</span>
+  </header>
+
+  <!-- 刊头 -->
+  <section class="masthead">
+    <p class="mast-tag">一份关于『一起玩』的刊物</p>
+    <h1 class="mast-name">玩伴志</h1>
+    <p class="mast-en">PLAYMATES JOURNAL</p>
+    <div class="mast-rule" aria-hidden="true">
+      <span class="rl"></span><span class="dm">✦</span><span class="rl"></span>
+    </div>
+    <p class="mast-meta">
+      VOL.03 · ISSUE 47<span class="sep">/</span>2026年10月24日 · 星期六<span class="sep">/</span>在场玩伴 9 人<span class="sep">/</span>定价：一段好时光
+    </p>
+  </section>
+
+  <!-- 开篇：期数大字 + 开篇语 -->
+  <section class="foreword grid">
+    <div class="fw-left">
+      <div class="fw-number">
+        <span class="fw-num-cap">本期期数 · 累计局数</span>
+        <span class="fw-num">47</span>
+        <span class="fw-num-en">Issue No.47 — Games Played in Total</span>
+      </div>
+      <span class="fw-vertical" aria-hidden="true">每一局，都算数</span>
+    </div>
+    <div class="fw-right">
+      <span class="label">开篇 · Foreword</span>
+      <h2 class="fw-title">我们玩过的每一局，<br>都值得被记得</h2>
+      <p class="fw-en">Every game we played is worth remembering</p>
+      <p class="fw-lead">从第 1 局到第 47 局，我们围坐过桌边，也并肩穿过峡谷与客厅。这本刊物不急着追胜负——它只想把那些「一起玩」的时间，一局一局，慢慢留下来。</p>
+    </div>
+  </section>
+
+  <!-- 本期主打 -->
+  <section class="story">
+    <div class="section-head">
+      <span class="sh-cn">本期主打<span class="sh-en">The Feature</span></span>
+      <span class="sh-note">手游版 · Mobile Games · P.02</span>
+    </div>
+    <div class="grid">
+      <figure class="story-frame">
+        <span class="fc fc1"></span><span class="fc fc2"></span><span class="fc fc3"></span><span class="fc fc4"></span>
+        <div class="inner">
+          <span class="frame-cross" aria-hidden="true"></span>
+          <p class="frame-title">对局照片 · 待冲印</p>
+          <p class="frame-en">Space for Game Photograph</p>
+          <p class="frame-note"><b>第 47 局</b> · 星耀之夜 · 2026.10.23</p>
+        </div>
+      </figure>
+      <div class="story-text">
+        <h3 class="story-title">星耀之夜：<br>三人五排三连胜</h3>
+        <p class="meta story-meta">《王者荣耀》 · 2026年10月23日 · 同队：阿凯、小雨</p>
+        <p class="story-lead">最后一波远古龙团，0 换 4 逆转战局。逆风别投——把运营拖进后期，自有回报。</p>
+        <a class="story-more" href="#">阅读整局复盘 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 要闻摘要 -->
+  <section class="brief">
+    <div class="section-head">
+      <span class="sh-cn">要闻摘要<span class="sh-en">In Brief</span></span>
+      <span class="sh-note">跨版精选 · Across All Desks</span>
+    </div>
+    <div class="brief-grid">
+      <article class="brief-item">
+        <span class="tag">桌游 · Board Games</span>
+        <h3>表弟的首胜</h3>
+        <p class="meta">《卡坦岛》 · 10月20日 · 家庭局</p>
+        <p class="excerpt">教会新人，比赢更有成就感——这一晚，连路上的木头都为他让行。</p>
+      </article>
+      <article class="brief-item">
+        <span class="tag">端游 · Console &amp; PC</span>
+        <h3>和对象通关第七章</h3>
+        <p class="meta">《双人成行》 · 10月18日 · 两人合作</p>
+        <p class="excerpt">第七章通关，合作默契又进一步。有些话不用讲，一个眼神就同步了。</p>
+      </article>
+      <article class="brief-item">
+        <span class="tag">学习游戏 · Learning</span>
+        <h3>和妹妹的三十天连胜</h3>
+        <p class="meta">多邻国 · 10月17日 · 学习搭子</p>
+        <p class="excerpt">互相监督的第 30 天，一天都没断。坚持这件事，两个人做就容易些。</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- 目录 + 玩伴栏 -->
+  <section class="lower grid">
+    <div class="contents">
+      <div class="section-head">
+        <span class="sh-cn">本期各版<span class="sh-en">Contents</span></span>
+        <span class="sh-note">五大版块 · Five Sections</span>
+      </div>
+      <ol class="toc">
+        <li class="toc-row">
+          <span class="toc-no">02</span>
+          <div class="toc-body">
+            <span class="toc-name">手游<em>Mobile Games</em></span>
+            <span class="toc-desc">五排开黑 · 上分战报</span>
+          </div>
+          <span class="toc-dots"></span>
+          <span class="toc-page">P.02</span>
+        </li>
+        <li class="toc-row">
+          <span class="toc-no">08</span>
+          <div class="toc-body">
+            <span class="toc-name">桌游<em>Board Games</em></span>
+            <span class="toc-desc">桌上的策略 · 身边的家人</span>
+          </div>
+          <span class="toc-dots"></span>
+          <span class="toc-page">P.08</span>
+        </li>
+        <li class="toc-row">
+          <span class="toc-no">14</span>
+          <div class="toc-body">
+            <span class="toc-name">端游<em>Console &amp; PC</em></span>
+            <span class="toc-desc">双人合作 · 深夜通关</span>
+          </div>
+          <span class="toc-dots"></span>
+          <span class="toc-page">P.14</span>
+        </li>
+        <li class="toc-row">
+          <span class="toc-no">20</span>
+          <div class="toc-body">
+            <span class="toc-name">家庭游戏<em>Family Games</em></span>
+            <span class="toc-desc">客厅里的笑声记录</span>
+          </div>
+          <span class="toc-dots"></span>
+          <span class="toc-page">P.20</span>
+        </li>
+        <li class="toc-row">
+          <span class="toc-no">26</span>
+          <div class="toc-body">
+            <span class="toc-name">学习游戏<em>Learning</em></span>
+            <span class="toc-desc">把进步，玩出来</span>
+          </div>
+          <span class="toc-dots"></span>
+          <span class="toc-page">P.26</span>
+        </li>
+      </ol>
+    </div>
+
+    <aside class="mates">
+      <div class="section-head">
+        <span class="sh-cn">玩伴栏<span class="sh-en">Playmates</span></span>
+        <span class="sh-note">在场 9 人 · Nine Present</span>
+      </div>
+      <div class="mates-body">
+        <figure class="mates-photo">
+          <span>阿凯 · 照片待补</span>
+        </figure>
+        <div class="mates-info">
+          <span class="mates-tag">本期人物 · Profile</span>
+          <h4 class="mates-name">阿凯</h4>
+          <p class="meta">同玩 28 局 · 手游版主力</p>
+          <p class="excerpt">翻开过去几期的手游版，几乎页页有他。下一局，还约他。</p>
+        </div>
+      </div>
+      <p class="mates-note">本栏目长期征稿：把你身边的玩伴，介绍给编辑部。</p>
+    </aside>
+  </section>
+
+  <!-- 发稿（投稿隐喻） -->
+  <section class="submit">
+    <span class="label">征稿 · Submissions</span>
+    <p class="submit-title">刚打完一局？把它写成小稿，寄给下一期。</p>
+    <button class="btn-submit" type="button">发稿 · File a Game</button>
+    <p class="submit-note">截稿：随时 · 篇幅：不限 · 署名：你的游戏 ID</p>
+  </section>
+
+  <!-- 页脚刊号 -->
+  <footer class="foot">
+    <div class="foot-rule" aria-hidden="true"></div>
+    <div class="foot-row">
+      <span>玩伴志 · Playmates Journal</span>
+      <span>— 01 —</span>
+      <span>VOL.03 · ISSUE 47 · 2026.10.24</span>
+    </div>
+    <p class="foot-motto">把一起玩过的时间，留在纸上。</p>
+  </footer>
+
+</div>
+</body>
+</html>
