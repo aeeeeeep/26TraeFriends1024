@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>开黑战报 · 总第47期 · 2026年10月24日 星期六</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* ============ 基础 ============ */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --paper:#f5efe0;
+  --ink:#16130c;
+  --red:#d62828;
+  --red-deep:#a81d1d;
+  --cream:#faf7ee;
+  --grey:#4b463a;
+  --sans:'Noto Sans SC','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Heiti SC',sans-serif;
+  --anton:'Anton','Arial Black','Impact','Noto Sans SC','PingFang SC',sans-serif;
+}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6}
+.inner{max-width:1360px;margin:0 auto;padding:0 20px}
+
+/* ============ 顶部黑信息条 ============ */
+.topbar{background:var(--ink);color:var(--cream)}
+.topbar .inner{display:flex;justify-content:space-between;align-items:center;height:42px;gap:16px}
+.topbar-item{font-size:14px;font-weight:700;letter-spacing:.06em;white-space:nowrap}
+.topbar-item em{font-style:normal;color:#ff8a80}
+.topbar-item .num{font-family:var(--anton);font-weight:400;font-size:15px;letter-spacing:.04em;color:#ffd166}
+.topbar-sep{color:rgba(250,247,238,.4)}
+
+/* ============ 报头 ============ */
+.masthead{padding:22px 0 0}
+.mast-row{display:flex;align-items:stretch;gap:26px}
+.mast-side{width:168px;flex:none;display:flex;flex-direction:column;justify-content:center;gap:10px}
+/* 左：比赛日戳 */
+.matchday{background:var(--ink);color:var(--cream);padding:12px 14px;transform:skewX(-8deg)}
+.matchday>*{transform:skewX(8deg)}
+.matchday .cn{font-size:19px;font-weight:900;letter-spacing:.14em;display:block}
+.matchday .en{font-family:var(--anton);font-weight:400;font-size:14px;letter-spacing:.22em;color:#ffd166;display:block;margin-top:2px}
+.mast-side .mini{font-size:14px;font-weight:700;color:var(--grey);line-height:1.5}
+.mast-side .mini b{color:var(--ink)}
+/* 中：报眼 */
+.mast-center{flex:1;text-align:center;min-width:0}
+.mast-kicker{display:flex;align-items:center;justify-content:center;gap:14px}
+.mast-kicker .line{height:3px;background:var(--ink);flex:1;max-width:170px}
+.mast-kicker .txt{font-family:var(--anton);font-weight:400;color:var(--red);font-size:21px;letter-spacing:.3em;text-transform:uppercase;white-space:nowrap}
+.mast-title{font-size:clamp(56px,9.2vw,124px);font-weight:900;letter-spacing:.075em;line-height:1.02;margin:2px 0 0;color:var(--ink);white-space:nowrap}
+.mast-title .hei{display:inline-block;background:var(--red);color:var(--cream);padding:0 .06em;line-height:1.02;transform:translateY(-.03em)}
+.mast-sub{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:6px}
+.mast-sub .txt{font-size:15px;font-weight:700;letter-spacing:.34em;color:var(--ink);white-space:nowrap}
+.mast-sub .dot{width:8px;height:8px;background:var(--red);flex:none}
+/* 右：期号与条码 */
+.volbox{display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:9px}
+.vol{background:var(--red);color:var(--cream);padding:9px 16px;transform:skewX(-8deg);text-align:center}
+.vol>*{transform:skewX(8deg);display:block}
+.vol .cn{font-size:15px;font-weight:900;letter-spacing:.2em}
+.vol .en{font-family:var(--anton);font-weight:400;font-size:20px;letter-spacing:.08em}
+.barcode{height:32px;width:150px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,var(--paper) 2px 5px,var(--ink) 5px 6px,var(--paper) 6px 10px,var(--ink) 10px 13px,var(--paper) 13px 15px)}
+.free{font-size:14px;font-weight:700;letter-spacing:.2em;color:var(--grey)}
+/* 报头下双线 */
+.rule-double{border-top:4px solid var(--ink);border-bottom:1px solid var(--ink);height:7px}
+
+/* ============ 版块索引导航 ============ */
+.sections{background:var(--ink);color:var(--cream)}
+.sections .inner{display:flex;align-items:center;height:54px;gap:0}
+.sec-item{display:flex;align-items:baseline;gap:8px;padding:0 22px;border-right:1px solid rgba(250,247,238,.28);white-space:nowrap}
+.sec-item:first-child{padding-left:2px}
+.sec-item .cn{font-size:16px;font-weight:900;letter-spacing:.1em}
+.sec-item .pg{font-family:var(--anton);font-weight:400;font-size:13px;color:#ff8a80;letter-spacing:.06em}
+.sec-spacer{flex:1}
+/* 发稿按钮：快讯投稿隐喻 */
+.btn-publish{flex:none;display:inline-flex;align-items:center;gap:10px;background:var(--red);color:var(--cream);border:none;cursor:pointer;padding:0 20px;height:40px;font-family:var(--sans);transform:skewX(-8deg)}
+.btn-publish>*{transform:skewX(8deg)}
+.btn-publish .plus{font-size:19px;font-weight:900;line-height:1}
+.btn-publish .t1{font-size:17px;font-weight:900;letter-spacing:.24em}
+.btn-publish .t2{font-size:14px;font-weight:700;opacity:.92;border-left:1px solid rgba(250,247,238,.55);padding-left:10px;letter-spacing:.04em}
+
+/* ============ 主区 ============ */
+.main{display:grid;grid-template-columns:1fr 424px;gap:26px;padding:20px 0 22px}
+
+/* ---- 头条海报 ---- */
+.headline{min-width:0}
+.hd-tags{display:flex;align-items:stretch;gap:0;margin-bottom:12px}
+.tag{display:inline-flex;align-items:center;padding:6px 14px;font-size:14px;font-weight:900;letter-spacing:.16em;white-space:nowrap}
+.tag-red{background:var(--red);color:var(--cream)}
+.tag-ink{background:var(--ink);color:var(--cream)}
+.tag-line{flex:1;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);display:flex;align-items:center;justify-content:flex-end;padding-right:10px}
+.tag-line span{font-family:var(--anton);font-weight:400;font-size:14px;letter-spacing:.2em;color:var(--grey)}
+.hd-title{font-size:clamp(46px,5.6vw,78px);font-weight:900;letter-spacing:.06em;line-height:1.08}
+.hd-title .en{display:inline-block;font-family:var(--anton);font-weight:400;font-size:.32em;letter-spacing:.24em;color:var(--red);vertical-align:.62em;margin-left:12px}
+.hd-deck{font-size:19px;font-weight:700;line-height:1.55;color:var(--ink);margin:8px 0 14px}
+.hd-deck b{background:var(--ink);color:var(--cream);padding:0 6px;font-weight:900}
+/* 黑色赛果海报 */
+.poster{position:relative;background:var(--ink);color:var(--cream);padding:0 0 0 0}
+.poster-stripe{height:12px;background:repeating-linear-gradient(-45deg,var(--red) 0 12px,var(--cream) 12px 24px)}
+.poster-body{display:flex;align-items:stretch;padding:18px 30px 16px;gap:26px}
+.big3{display:flex;align-items:flex-start}
+.big3 .n{font-family:var(--anton);font-weight:400;font-size:clamp(150px,17vw,232px);line-height:.82;color:var(--cream);letter-spacing:-.01em}
+.big3 .u{writing-mode:vertical-rl;font-size:clamp(44px,4.6vw,64px);font-weight:900;letter-spacing:.22em;line-height:1;border-left:3px solid var(--red);padding-left:14px;margin-left:16px;margin-top:6px}
+.big3 .en{writing-mode:vertical-rl;font-family:var(--anton);font-weight:400;font-size:14px;letter-spacing:.32em;color:#ff8a80;margin-left:12px;margin-top:8px}
+.poster-side{flex:1;display:flex;flex-direction:column;justify-content:space-between;padding:6px 0 2px;min-width:0}
+/* WIN 章印 */
+.win-stamp{align-self:flex-end;margin:-34px -6px 0 0;transform:rotate(-7deg);background:var(--red);padding:3px}
+.win-stamp span{display:block;border:3px solid var(--cream);padding:4px 20px;font-family:var(--anton);font-weight:400;font-size:30px;letter-spacing:.22em;line-height:1;color:var(--cream)}
+.poster-meta{font-size:15px;font-weight:700;color:var(--cream);letter-spacing:.04em}
+.poster-meta .who{color:#ffd166}
+.w-row{display:flex;align-items:center;gap:8px}
+.w-box{width:38px;height:38px;background:var(--red);color:var(--cream);display:flex;align-items:center;justify-content:center;font-family:var(--anton);font-weight:400;font-size:22px}
+.w-tag{font-size:14px;font-weight:700;letter-spacing:.1em;color:rgba(250,247,238,.85);margin-left:6px}
+/* 海报数据行 */
+.poster-data{border-top:1px solid rgba(250,247,238,.35);display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 30px 16px;flex-wrap:wrap}
+.pd-label .cn{font-size:15px;font-weight:900;letter-spacing:.14em;display:block}
+.pd-label .en{font-family:var(--anton);font-weight:400;font-size:13px;letter-spacing:.22em;color:#ff8a80;display:block;margin-top:2px}
+.pd-score{display:flex;align-items:baseline;gap:10px}
+.pd-score .n{font-family:var(--anton);font-weight:400;font-size:54px;line-height:1}
+.pd-score .n.lose{color:var(--cream)}
+.pd-score .n.win{color:#ff5147}
+.pd-score .x{font-size:16px;font-weight:900;color:rgba(250,247,238,.8)}
+.pd-score .cap{font-size:14px;font-weight:700;color:#ffd166;letter-spacing:.12em;border:1px solid #ffd166;padding:2px 8px;margin-left:6px}
+/* 署名行 */
+.hd-byline{display:flex;align-items:center;gap:14px;margin-top:12px;font-size:14px;font-weight:700;color:var(--grey);letter-spacing:.03em}
+.hd-byline .bar{flex:none;width:34px;height:5px;background:var(--red)}
+.hd-byline b{color:var(--ink)}
+
+/* ---- 要闻快讯侧栏 ---- */
+.newswire{border:2px solid var(--ink);display:flex;flex-direction:column}
+.nw-head{background:var(--ink);color:var(--cream);display:flex;align-items:center;gap:12px;padding:10px 16px}
+.nw-head .sq{width:12px;height:12px;background:var(--red);flex:none}
+.nw-head .cn{font-size:19px;font-weight:900;letter-spacing:.2em}
+.nw-head .en{font-family:var(--anton);font-weight:400;font-size:14px;letter-spacing:.24em;color:#ff8a80;margin-left:auto}
+.nw-list{list-style:none}
+.nw-item{padding:14px 16px 13px;border-bottom:1px solid #c9c0a8;display:flex;gap:12px}
+.nw-item:last-child{border-bottom:none}
+.nw-no{font-family:var(--anton);font-weight:400;font-size:30px;line-height:1;color:var(--red);flex:none;width:34px;padding-top:2px}
+.nw-body{min-width:0;flex:1}
+.nw-tagrow{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap}
+.nw-sec{background:var(--red);color:var(--cream);font-size:13px;font-weight:900;letter-spacing:.1em;padding:1px 8px;white-space:nowrap}
+.nw-date{font-size:13px;font-weight:700;color:var(--grey);letter-spacing:.06em;white-space:nowrap}
+.nw-title{font-size:18px;font-weight:900;line-height:1.35;letter-spacing:.02em}
+.nw-desc{font-size:14px;line-height:1.6;color:var(--grey);margin-top:4px}
+.nw-desc b{color:var(--ink)}
+.nw-foot{margin-top:auto;border-top:2px solid var(--ink);padding:9px 16px;display:flex;align-items:center;justify-content:space-between;background:#e9e2cd}
+.nw-foot .cn{font-size:14px;font-weight:900;letter-spacing:.08em}
+.nw-foot .en{font-family:var(--anton);font-weight:400;font-size:13px;letter-spacing:.18em;color:var(--red)}
+
+/* ============ 战绩比分板（体育数据条） ============ */
+.rule-above{border-top:1px solid var(--ink);border-bottom:4px solid var(--ink);height:5px}
+.scoreboard{background:var(--ink);color:var(--cream)}
+.sb-inner{max-width:1360px;margin:0 auto;padding:0 20px;display:flex;align-items:stretch}
+.sb-brand{flex:none;background:var(--red);color:var(--cream);display:flex;align-items:center;gap:12px;padding:0 18px}
+.sb-brand .cn{writing-mode:vertical-rl;font-size:21px;font-weight:900;letter-spacing:.3em;line-height:1}
+.sb-brand .en{writing-mode:vertical-rl;font-family:var(--anton);font-weight:400;font-size:13px;letter-spacing:.24em;color:#ffd166}
+.sb-cells{flex:1;display:grid;grid-template-columns:1.1fr 1fr 1fr .95fr}
+.sb-cell{padding:14px 24px 13px;border-left:1px solid rgba(250,247,238,.22);display:flex;flex-direction:column;justify-content:center;gap:3px;min-width:0}
+.sb-cell .k{font-family:var(--anton);font-weight:400;font-size:13px;letter-spacing:.2em;color:#ff8a80}
+.sb-cell .v{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.sb-cell .v .num{font-family:var(--anton);font-weight:400;font-size:46px;line-height:.95;letter-spacing:.01em}
+.sb-cell .v .num.hi{background:var(--red);padding:0 10px;line-height:1.05}
+.sb-cell .v .dash{font-family:var(--anton);font-weight:400;font-size:34px;color:rgba(250,247,238,.65)}
+.sb-cell .s{font-size:14px;font-weight:700;color:rgba(250,247,238,.88);letter-spacing:.03em}
+.sb-cell .s .sub{color:rgba(250,247,238,.62)}
+.stars{font-size:27px;letter-spacing:.08em;line-height:1;color:#ffd166;white-space:nowrap}
+.stars .off{color:#787364}
+.mini-w{display:inline-flex;gap:4px;align-items:center}
+.mini-w i{width:19px;height:19px;background:var(--red);color:var(--cream);font-style:normal;font-family:var(--anton);font-weight:400;font-size:12px;display:flex;align-items:center;justify-content:center}
+
+/* ============ 页脚 ============ */
+.rule-foot{border-top:4px solid var(--ink);border-bottom:1px solid var(--ink);height:7px;margin-top:22px}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:12px 0 26px;flex-wrap:wrap}
+.foot .l{font-size:14px;font-weight:900;letter-spacing:.14em}
+.foot .l .en{font-family:var(--anton);font-weight:400;color:var(--red);letter-spacing:.2em;margin-left:8px}
+.foot .m{font-size:14px;font-weight:700;color:var(--grey);letter-spacing:.18em;text-align:center}
+.foot .r{font-size:14px;font-weight:700;color:var(--grey);white-space:nowrap}
+.foot .r b{color:var(--ink)}
+
+/* ============ 窄屏兜底 ============ */
+@media (max-width:1080px){
+  .main{grid-template-columns:1fr}
+  .sb-cells{grid-template-columns:1fr 1fr}
+  .sb-cell{border-top:1px solid rgba(250,247,238,.22)}
+  .mast-side{display:none}
+  .topbar .inner{justify-content:flex-start;overflow-x:auto}
+}
+@media (max-width:720px){
+  .sections .inner{overflow-x:auto;justify-content:flex-start}
+  .sb-cells{grid-template-columns:1fr}
+  .sb-brand{padding:10px 12px}
+  .mast-title{white-space:normal;text-align:center}
+  .poster-body{flex-wrap:wrap}
+  .win-stamp{margin:-6px 0 0}
+  .hd-tags{flex-wrap:wrap}
+  .tag-line{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- 顶部黑信息条 -->
+<div class="topbar">
+  <div class="inner">
+    <span class="topbar-item">2026年10月24日 星期六</span>
+    <span class="topbar-item"><span class="topbar-sep">｜</span>丙午马年 · 秋季赛 S4 进行中<span class="topbar-sep">｜</span>晚 刊</span>
+    <span class="topbar-item">累计 <span class="num">47</span> 局 · 玩伴 <span class="num">9</span> 人 · 总胜率 <em><span class="num">62%</span></em></span>
+  </div>
+</div>
+
+<!-- 报头 -->
+<header class="masthead">
+  <div class="inner">
+    <div class="mast-row">
+      <div class="mast-side">
+        <div class="matchday">
+          <span class="cn">周六比赛日</span>
+          <span class="en">MATCH DAY</span>
+        </div>
+        <p class="mini">今晚开黑指数<br><b>★★★★★</b> 满格</p>
+      </div>
+      <div class="mast-center">
+        <div class="mast-kicker">
+          <span class="line"></span>
+          <span class="txt">Game On!</span>
+          <span class="line"></span>
+        </div>
+        <h1 class="mast-title">开<span class="hei">黑</span>战报</h1>
+        <div class="mast-sub">
+          <span class="dot"></span>
+          <span class="txt">每一局 都值得头版</span>
+          <span class="dot"></span>
+        </div>
+      </div>
+      <div class="mast-side volbox">
+        <div class="vol">
+          <span class="cn">总第 47 期</span>
+          <span class="en">VOL.47</span>
+        </div>
+        <div class="barcode" aria-hidden="true"></div>
+        <span class="free">玩伴内部免费传阅</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="inner"><div class="rule-double"></div></div>
+
+<!-- 版块索引 -->
+<nav class="sections" aria-label="版块索引">
+  <div class="inner">
+    <span class="sec-item"><span class="cn">手游版</span><span class="pg">A2</span></span>
+    <span class="sec-item"><span class="cn">桌游版</span><span class="pg">B1</span></span>
+    <span class="sec-item"><span class="cn">端游版</span><span class="pg">C1</span></span>
+    <span class="sec-item"><span class="cn">家庭版</span><span class="pg">D1</span></span>
+    <span class="sec-item"><span class="cn">学习版</span><span class="pg">E1</span></span>
+    <span class="sec-spacer"></span>
+    <button class="btn-publish" type="button">
+      <span class="plus">✚</span>
+      <span class="t1">发 稿</span>
+      <span class="t2">快讯投稿 · 记录新的一局</span>
+    </button>
+  </div>
+</nav>
+
+<!-- 主区：头条海报 + 要闻快讯 -->
+<main class="inner main">
+
+  <!-- 头条海报位 -->
+  <article class="headline">
+    <div class="hd-tags">
+      <span class="tag tag-red">头版头条</span>
+      <span class="tag tag-ink">手游版 · 王者荣耀</span>
+      <span class="tag-line"><span>RANKED 5V5 · 排位特辑</span></span>
+    </div>
+    <h2 class="hd-title">星耀之夜<span class="en">STARRY NIGHT</span></h2>
+    <p class="hd-deck">三人五排连夜冲分，一波远古龙团<b>「零换四」</b>团灭对手，直落三盘豪取连胜</p>
+
+    <div class="poster">
+      <div class="poster-stripe" aria-hidden="true"></div>
+      <div class="poster-body">
+        <div class="big3">
+          <span class="n">3</span>
+          <span class="u">连胜</span>
+          <span class="en">TRIPLE WIN STREAK</span>
+        </div>
+        <div class="poster-side">
+          <div class="win-stamp" aria-label="胜利徽章"><span>WIN</span></div>
+          <p class="poster-meta">领衔：阿凯（中单）· 小雨（打野）<br><span class="who">五排车队 · 三战全胜 · 一局未弃</span></p>
+          <div class="w-row">
+            <span class="w-box">W</span><span class="w-box">W</span><span class="w-box">W</span>
+            <span class="w-tag">连胜进行中</span>
+          </div>
+        </div>
+      </div>
+      <div class="poster-data">
+        <div class="pd-label">
+          <span class="cn">关键团战 · 远古龙坑决战</span>
+          <span class="en">KEY FIGHT · ELDER DRAGON</span>
+        </div>
+        <div class="pd-score">
+          <span class="n lose">0</span>
+          <span class="x">换</span>
+          <span class="n win">4</span>
+          <span class="cap">团灭 ACE</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="hd-byline">
+      <span class="bar"></span>
+      本报记者 <b>阿凯 · 小雨</b> 联合报道 · 2026年10月23日 21:04 收官 · 星耀Ⅱ 段位
+    </p>
+  </article>
+
+  <!-- 要闻快讯 -->
+  <aside class="newswire" aria-label="要闻快讯">
+    <div class="nw-head">
+      <span class="sq"></span>
+      <span class="cn">要闻快讯</span>
+      <span class="en">NEWS FLASH</span>
+    </div>
+    <ul class="nw-list">
+      <li class="nw-item">
+        <span class="nw-no">01</span>
+        <div class="nw-body">
+          <div class="nw-tagrow">
+            <span class="nw-sec">桌游版 B1</span>
+            <span class="nw-date">10月20日 · 家庭局</span>
+          </div>
+          <h3 class="nw-title">表弟的首胜</h3>
+          <p class="nw-desc">《卡坦岛》最长道路直通两国，表弟以 <b>10 分首次建国称王</b>，全家起立鼓掌通过。</p>
+        </div>
+      </li>
+      <li class="nw-item">
+        <span class="nw-no">02</span>
+        <div class="nw-body">
+          <div class="nw-tagrow">
+            <span class="nw-sec">端游版 C1</span>
+            <span class="nw-date">10月18日 · 双人协作</span>
+          </div>
+          <h3 class="nw-title">和对象通关第七章</h3>
+          <p class="nw-desc">《双人成行》「花园」章节通关，<b>默契值拉满</b>，存档点收集率 100%。</p>
+        </div>
+      </li>
+      <li class="nw-item">
+        <span class="nw-no">03</span>
+        <div class="nw-body">
+          <div class="nw-tagrow">
+            <span class="nw-sec">学习版 E1</span>
+            <span class="nw-date">10月17日 · 每日打卡</span>
+          </div>
+          <h3 class="nw-title">和妹妹的多邻国 30 天连胜</h3>
+          <p class="nw-desc">互相监督连续打卡 <b>30 天</b>，连胜火焰未断，累计经验值 12,400。</p>
+        </div>
+      </li>
+    </ul>
+    <div class="nw-foot">
+      <span class="cn">下期预告：谁将登上下周 MVP 头版？</span>
+      <span class="en">NEXT ISSUE</span>
+    </div>
+  </aside>
+</main>
+
+<!-- 战绩比分板（体育数据条） -->
+<div class="inner"><div class="rule-above"></div></div>
+<section class="scoreboard" aria-label="本周战绩比分板">
+  <div class="sb-inner">
+    <div class="sb-brand">
+      <span class="cn">本周战报</span>
+      <span class="en">WEEK RESULTS</span>
+    </div>
+    <div class="sb-cells">
+      <div class="sb-cell">
+        <span class="k">本周战绩 · WEEK</span>
+        <span class="v">
+          <span class="num">4</span><span class="dash">–</span><span class="num">2</span>
+        </span>
+        <span class="s">6 局 · 4 胜 2 负 <span class="sub">· 周胜率 67%</span></span>
+      </div>
+      <div class="sb-cell">
+        <span class="k">最长连胜 · STREAK</span>
+        <span class="v">
+          <span class="num">3</span>
+          <span class="mini-w"><i>W</i><i>W</i><i>W</i></span>
+        </span>
+        <span class="s">手游版 <span class="sub">· 连胜进行中</span></span>
+      </div>
+      <div class="sb-cell">
+        <span class="k">欢笑度 · JOY INDEX</span>
+        <span class="v">
+          <span class="stars">★★★★<span class="off">★</span></span>
+        </span>
+        <span class="s">家庭版 <span class="sub">· 卡坦岛之夜</span></span>
+      </div>
+      <div class="sb-cell">
+        <span class="k">总胜率 · ALL-TIME</span>
+        <span class="v">
+          <span class="num hi">62%</span>
+        </span>
+        <span class="s">累计 47 局 <span class="sub">· 47 期全记录</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 页脚 -->
+<footer>
+  <div class="inner">
+    <div class="rule-foot"></div>
+    <div class="foot">
+      <span class="l">开黑战报 编辑部 出品<span class="en">KAIHEI SPORTS</span></span>
+      <span class="m">复盘记录 · 与玩伴连结 · 看见成长</span>
+      <span class="r">第 <b>A1</b> 版 · 定价：一句 GG</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
